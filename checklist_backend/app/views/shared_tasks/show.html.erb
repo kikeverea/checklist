@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @user_task %>
+
+<div>
+  <%= link_to "Edit this user task", edit_user_task_path(@user_task) %> |
+  <%= link_to "Back to user tasks", user_tasks_path %>
+
+  <%= button_to "Destroy this user task", @user_task, method: :delete %>
+</div>

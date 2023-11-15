@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Task categories</h1>
+
+<div id="task_categories">
+  <% @task_categories.each do |task_category| %>
+    <%= render task_category %>
+    <p>
+      <%= link_to "Show this task category", task_category %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New task category", new_task_category_path %>

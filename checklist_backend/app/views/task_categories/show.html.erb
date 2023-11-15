@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @task_category %>
+
+<div>
+  <%= link_to "Edit this task category", edit_task_category_path(@task_category) %> |
+  <%= link_to "Back to task categories", task_categories_path %>
+
+  <%= button_to "Destroy this task category", @task_category, method: :delete %>
+</div>
