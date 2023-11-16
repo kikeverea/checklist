@@ -1,0 +1,12 @@
+GET http://192.168.64.5:3000/tasks.json
+
+###
+
+POST http://192.168.64.5:3000/tasks.json
+Content-Type: application/json
+
+{
+    "description": "test 10",
+    "created_by" : 1
+}
+
