@@ -1,13 +1,13 @@
 import { FlatList, View } from "react-native"
-import CheckListItem from "./TaskItem"
+import TaskItem from "./TaskItem"
 
-const TaskList = ({ items, selectionList }) => {
+const TaskList = ({ tasks, selectionList }) => {
 
-  const renderCheckListItem = ({ item }) =>
-    <CheckListItem
-      item={ item }
+  const renderTaskItem = ({ task }) =>
+    <TaskItem
+      task={ task }
       editing={ selectionList.length() > 0 }
-      inList={ selectionList.inList(item) }
+      inList={ selectionList.inList(task) }
       addToEdit={ selectionList.add }
       removeFromEdit={ selectionList.remove }
     />
@@ -15,9 +15,9 @@ const TaskList = ({ items, selectionList }) => {
   return (
     <View>
       <FlatList
-        renderItem={ renderCheckListItem }
-        data={ items.sort((item1, item2) => item1.id - item2.id) }
-        keyExtractor={(item) => item.id}
+        renderItem={ renderTaskItem }
+        data={ tasks.sort((task1, task2) => task1.id - task2.id) }
+        keyExtractor={(task) => task.id}
         contentContainerStyle={{ paddingBottom: 60 }}
       />
     </View>

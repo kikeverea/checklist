@@ -12,22 +12,22 @@ import useSelectionList from '../../hooks/useSelectionList'
 
 const CheckList = () => {
 
-  const [items, setItems] = useState([])
+  const [tasks, setTasks] = useState([])
   const [dialog, setDialog] = useState(null)
   const selectionList = useSelectionList()
 
   const showCreateDialog = () => {
-    setDialog(<InputDialog title='Nueva entrada' actionName='crear' dismiss={ dismissCreateDialog }/>)
+    setDialog(<InputDialog title='Nueva tarea' actionName='crear' dismiss={ dismissCreateDialog }/>)
   }
 
   const showEditDialog = () => {
     const content = selectionList.get(0).content
-    setDialog(<InputDialog title='Editar entrada' actionName='editar' initialContent={ content } dismiss={ dismissEditDialog }/>)
+    setDialog(<InputDialog title='Editar tarea' actionName='editar' initialContent={ content } dismiss={ dismissEditDialog }/>)
   }
 
   const showDeleteDialog = () => {
     const content = `¿Está seguro que desea elmininar ${ selectionList.length() === 1 ? 'esta entrada' : 'estas entradas' }?`
-    setDialog(<AlertDialog title='New item' content={ content } dismiss={ dismissDeleteDialog }/>)
+    setDialog(<AlertDialog title='Eliminar tarea' content={ content } dismiss={ dismissDeleteDialog }/>)
   }
 
   const dismissCreateDialog = async (content) => {
@@ -35,8 +35,8 @@ const CheckList = () => {
 
     if (content) {
       try {
-        const newItem = await tasksService.createItem(content)
-        setItems(items.concat(newItem))
+        const newTask = await tasksService.createTask(content)
+        setTasks(tasks.concat(newTask))
       }
       catch (e) {
         console.error('Could not create task')
@@ -59,7 +59,7 @@ const CheckList = () => {
 
     try {
       editTask.content = content
-      await tasksService.updateItem(editTask)
+      await tasksService.updateTask(editTask)
       selectionList.clear()
     }
     catch (e) {
@@ -74,12 +74,12 @@ const CheckList = () => {
       try {
         const idsToDelete = selectionList.selectionList.map(task => task.id)
         
-        const promises = idsToDelete.map(id => tasksService.deleteItem(id))
+        const promises = idsToDelete.map(id => tasksService.deleteTask(id))
         const deleteResult = await Promise.all(promises)
         const deletedIds = idsToDelete.filter((_, index) => deleteResult[index])
 
         selectionList.clear()
-        setItems(items.filter(task => !deletedIds.includes(task.id)))
+        setTasks(tasks.filter(task => !deletedIds.includes(task.id)))
       }
       catch (e) {
         console.error(e)
@@ -93,13 +93,13 @@ const CheckList = () => {
 
   useEffect(() => {
     tasksService.getAll()
-      .then(items => setItems(items)) 
+      .then(tasks => setTasks(tasks)) 
   }, [])
 
   return(
     <View>
       <Banner editCount={ selectionList.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
-      <TaskList items={ items } selectionList={ selectionList }/>
+      <TaskList tasks={ tasks } selectionList={ selectionList }/>
       { dialog }
       <ActionButton
         buttonColor={ colors.accent }

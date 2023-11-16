@@ -2,7 +2,7 @@ import { Text, StyleSheet, Pressable } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { colors } from '../../styles/styles'
 
-const CheckListItem = ({ item, editing, inList, addToEdit, removeFromEdit }) => {
+const TaskItem = ({ task, editing, inList, addToEdit, removeFromEdit }) => {
 
   const backgroundColor = inList ? colors.primaryLight : colors.defaultBackground
 
@@ -13,14 +13,14 @@ const CheckListItem = ({ item, editing, inList, addToEdit, removeFromEdit }) => 
 
   const handleEdit = () => {
     if (inList) 
-        removeFromEdit(item)
+        removeFromEdit(task)
     
     else 
-        addToEdit(item)
+        addToEdit(task)
   }
 
   const styles = StyleSheet.create({
-    itemStyle: {
+    taskStyle: {
       flexDirection: 'row',
       paddingLeft: 16,
       paddingTop: 16,
@@ -31,16 +31,16 @@ const CheckListItem = ({ item, editing, inList, addToEdit, removeFromEdit }) => 
   })
 
   return (
-    <Pressable style={ styles.itemStyle } onPress={ () => handlePress() } onLongPress={ () => handleEdit() }>
+    <Pressable style={ styles.taskStyle } onPress={ () => handlePress() } onLongPress={ () => handleEdit() }>
       <BouncyCheckbox
-        isChecked={ item.checked }
+        isChecked={ task.checked }
         fillColor={ colors.primary }
         unfillColor="#FFFFFF"
         iconStyle={{ borderColor: colors.primary }}
       />
-      <Text>{ item.description }</Text>
+      <Text>{ task.description }</Text>
     </Pressable>
   )
 }
 
-export default CheckListItem
+export default TaskItem

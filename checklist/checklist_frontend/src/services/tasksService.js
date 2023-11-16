@@ -14,19 +14,18 @@ const getAll = async () => {
     return res.data
 }
 
-const createItem = async (description) => {
+const createTask = async (description) => {
     const res = await axios.post(url(), { description })
     return res.data
 }
 
-const updateItem = async (item) => {
-    deleteItem(item)
-    items.push(item)
+const updateTask = async task => {
+    
 }
 
-const deleteItem = async id => {
+const deleteTask = async id => {
   const res = await axios.delete(url([id]))
   return res.status === 204
 }
 
-export default { getAll, createItem, updateItem, deleteItem }
+export default { getAll, createTask, updateTask, deleteTask }
