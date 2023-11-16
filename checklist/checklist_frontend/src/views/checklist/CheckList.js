@@ -8,10 +8,6 @@ import tasksService from '../../services/tasksService'
 import AlertDialog from '../dialogs/AlertDialog'
 import useSelectionList from '../../hooks/useSelectionList'
 
-
-  const user = {
-    id: 1
-  } 
 const CheckList = forwardRef((props, ref) => {
 
   const [tasks, setTasks] = useState([])
@@ -95,9 +91,10 @@ const CheckList = forwardRef((props, ref) => {
     }
   }
 
+  const onTaskCompletedChange = async (task, completed) => {
     task.completed = completed
-    tasksService.updateCompletedState(user, task)
     const updated = await tasksService.updateCompletedState(props.user, task)
+    setTasks(tasks.map(task => task.id === updated.id ? updated : task))
   }
 
   const hideDialog = () =>
@@ -106,7 +103,10 @@ const CheckList = forwardRef((props, ref) => {
 
   useEffect(() => {
     tasksService.getAll()
-      .then(tasks => setTasks(tasks)) 
+      .then(tasks => {
+        setTasks(tasks)
+      })
+      .catch(e => console.error(e))
   }, [])
 
   return(
