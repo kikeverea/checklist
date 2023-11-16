@@ -1,20 +1,18 @@
 import { View } from 'react-native'
 import TaskList from './TaskList'
-import { colors } from '../../styles/styles'
-import ActionButton from 'react-native-action-button'
 import InputDialog from '../dialogs/InputDialog'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState, useImperativeHandle } from 'react'
 
 import Banner from '../main/Banner'
 import tasksService from '../../services/tasksService'
 import AlertDialog from '../dialogs/AlertDialog'
 import useSelectionList from '../../hooks/useSelectionList'
 
-const CheckList = () => {
 
   const user = {
     id: 1
   } 
+const CheckList = forwardRef((props, ref) => {
 
   const [tasks, setTasks] = useState([])
   const [dialog, setDialog] = useState(null)
@@ -23,6 +21,12 @@ const CheckList = () => {
   const showCreateDialog = () => {
     setDialog(<InputDialog title='Nueva tarea' actionName='crear' dismiss={ dismissCreateDialog }/>)
   }
+
+  useImperativeHandle(ref, () => {
+    return {
+      showCreateDialog
+    }
+  })
 
   const showEditDialog = () => {
     const content = selectionList.get(0).content
@@ -39,7 +43,7 @@ const CheckList = () => {
 
     if (content) {
       try {
-        const newTask = await tasksService.createTask(user, content)
+        const newTask = await tasksService.createTask(props.user, content)
         setTasks(tasks.concat(newTask))
       }
       catch (e) {
@@ -91,9 +95,9 @@ const CheckList = () => {
     }
   }
 
-  const onTaskCompletedChange = (task, completed) => {
     task.completed = completed
     tasksService.updateCompletedState(user, task)
+    const updated = await tasksService.updateCompletedState(props.user, task)
   }
 
   const hideDialog = () =>
@@ -110,12 +114,8 @@ const CheckList = () => {
       <Banner editCount={ selectionList.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
       <TaskList tasks={ tasks } onTaskCompletedChange={ onTaskCompletedChange } selectionList={ selectionList }/>
       { dialog }
-      <ActionButton
-        buttonColor={ colors.accent }
-        onPress={ () => showCreateDialog() }
-      />
     </View>
   )
-}
+})
 
 export default CheckList
