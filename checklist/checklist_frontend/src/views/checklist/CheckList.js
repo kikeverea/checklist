@@ -12,6 +12,10 @@ import useSelectionList from '../../hooks/useSelectionList'
 
 const CheckList = () => {
 
+  const user = {
+    id: 1
+  } 
+
   const [tasks, setTasks] = useState([])
   const [dialog, setDialog] = useState(null)
   const selectionList = useSelectionList()
@@ -32,10 +36,6 @@ const CheckList = () => {
 
   const dismissCreateDialog = async (content) => {
     hideDialog()
-
-    const user = {
-      id: 1
-    }
 
     if (content) {
       try {
@@ -91,6 +91,11 @@ const CheckList = () => {
     }
   }
 
+  const onTaskCompletedChange = (task, completed) => {
+    task.completed = completed
+    tasksService.updateCompletedState(user, task)
+  }
+
   const hideDialog = () =>
     setDialog(null)
 
@@ -103,7 +108,7 @@ const CheckList = () => {
   return(
     <View>
       <Banner editCount={ selectionList.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
-      <TaskList tasks={ tasks } selectionList={ selectionList }/>
+      <TaskList tasks={ tasks } onTaskCompletedChange={ onTaskCompletedChange } selectionList={ selectionList }/>
       { dialog }
       <ActionButton
         buttonColor={ colors.accent }

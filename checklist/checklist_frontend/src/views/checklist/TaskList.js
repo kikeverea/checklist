@@ -1,11 +1,12 @@
 import { FlatList, View } from "react-native"
 import TaskItem from "./TaskItem"
 
-const TaskList = ({ tasks, selectionList }) => {
+const TaskList = ({ tasks, onTaskCompletedChange, selectionList }) => {
 
   const renderTaskItem = ({ item }) =>
     <TaskItem
       task={ item }
+      onCompletedChange={ onTaskCompletedChange }
       editing={ selectionList.length() > 0 }
       inList={ selectionList.inList(item) }
       addToEdit={ selectionList.add }

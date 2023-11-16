@@ -19,9 +19,17 @@ const createTask = async (user, description) => {
     return res.data
 }
 
-const updateTaskDescription = async (task, description) => {
-    const res = await axios.put(url([task.id]), { description })
-    return res.data
+const updateCompletedState = async (user, task) => {
+  return await updateTask(task, { udpated_by: user.id, completed: task.completed })
+}
+
+const updateTaskDescription = async (user, task, description) => {
+  return await updateTask(task, { udpated_by: user.id, description })
+}
+
+const updateTask = async (task, updateContent) => {
+  const res = await axios.put(url([task.id]), updateContent)
+  return res.data
 }
 
 const deleteTask = async id => {
@@ -29,4 +37,4 @@ const deleteTask = async id => {
   return res.status === 204
 }
 
-export default { getAll, createTask, updateTaskDescription, deleteTask }
+export default { getAll, createTask, updateTaskDescription, updateCompletedState, deleteTask }
