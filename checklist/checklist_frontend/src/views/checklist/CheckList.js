@@ -75,10 +75,11 @@ const CheckList = () => {
         const idsToDelete = selectionList.selectionList.map(task => task.id)
         
         const promises = idsToDelete.map(id => tasksService.deleteItem(id))
-        const deleteSucceeded = await Promise.all(promises)
-        
+        const deleteResult = await Promise.all(promises)
+        const deletedIds = idsToDelete.filter((_, index) => deleteResult[index])
+
         selectionList.clear()
-        setItems(items.filter((task, index) => deleteSucceeded[index] && task.id !== idsToDelete[index]))
+        setItems(items.filter(task => !deletedIds.includes(task.id)))
       }
       catch (e) {
         console.error(e)
