@@ -48,7 +48,7 @@ const CheckList = () => {
     }
   }
 
-  const dismissEditDialog = async (content) => {
+  const dismissEditDialog = async content => {
     hideDialog()
 
     const editTask = selectionList.get(0)
@@ -58,12 +58,12 @@ const CheckList = () => {
       return
 
     // same content, no further steps required
-    if (content === editTask.content)
+    if (content === editTask.description)
       return
 
     try {
-      editTask.content = content
-      await tasksService.updateTask(editTask)
+      const edited = await tasksService.updateTaskDescription(editTask, content)
+      setTasks(tasks.map(task => task.id === edited.id ? edited : task))
       selectionList.clear()
     }
     catch (e) {

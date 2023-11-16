@@ -19,8 +19,9 @@ const createTask = async (user, description) => {
     return res.data
 }
 
-const updateTask = async task => {
-    
+const updateTaskDescription = async (task, description) => {
+    const res = await axios.put(url([task.id]), { description })
+    return res.data
 }
 
 const deleteTask = async id => {
@@ -28,4 +29,4 @@ const deleteTask = async id => {
   return res.status === 204
 }
 
-export default { getAll, createTask, updateTask, deleteTask }
+export default { getAll, createTask, updateTaskDescription, deleteTask }
