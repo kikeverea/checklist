@@ -1,10 +1,10 @@
 import axios from "axios"
 
 const url = args => {
-  const url = 'http://192.168.64.5:3000/tasks'
+  let url = 'http://192.168.64.5:3000/tasks'
 
   if (args)
-    url + '/' + args.join('/')
+    url += '/' + args.join('/')
 
   return url + '.json'
 }
@@ -25,7 +25,7 @@ const updateItem = async (item) => {
 }
 
 const deleteItem = async id => {
-  const res = await axios.delete(url(id))
+  const res = await axios.delete(url([id]))
   return res.status === 204
 }
 
