@@ -3,11 +3,11 @@ import TaskItem from "./TaskItem"
 
 const TaskList = ({ tasks, selectionList }) => {
 
-  const renderTaskItem = ({ task }) =>
+  const renderTaskItem = ({ item }) =>
     <TaskItem
-      task={ task }
+      task={ item }
       editing={ selectionList.length() > 0 }
-      inList={ selectionList.inList(task) }
+      inList={ selectionList.inList(item) }
       addToEdit={ selectionList.add }
       removeFromEdit={ selectionList.remove }
     />

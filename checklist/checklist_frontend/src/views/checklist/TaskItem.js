@@ -33,7 +33,7 @@ const TaskItem = ({ task, editing, inList, addToEdit, removeFromEdit }) => {
   return (
     <Pressable style={ styles.taskStyle } onPress={ () => handlePress() } onLongPress={ () => handleEdit() }>
       <BouncyCheckbox
-        isChecked={ task.checked }
+        isChecked={ task.completed }
         fillColor={ colors.primary }
         unfillColor="#FFFFFF"
         iconStyle={{ borderColor: colors.primary }}
