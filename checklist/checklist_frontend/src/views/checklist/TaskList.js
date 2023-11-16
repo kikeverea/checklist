@@ -1,7 +1,7 @@
 import { FlatList, View } from "react-native"
 import CheckListItem from "./TaskItem"
 
-const CheckListItems = ({ items, selectionList }) => {
+const TaskList = ({ items, selectionList }) => {
 
   const renderCheckListItem = ({ item }) =>
     <CheckListItem
@@ -24,4 +24,4 @@ const CheckListItems = ({ items, selectionList }) => {
   )
 }
 
-export default CheckListItems
+export default TaskList

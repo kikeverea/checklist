@@ -1,12 +1,12 @@
 import { View } from 'react-native'
-import CheckListItems from './Tasktems'
+import TaskList from './TaskList'
 import { colors } from '../../styles/styles'
 import ActionButton from 'react-native-action-button'
 import InputDialog from '../dialogs/InputDialog'
 import { useEffect, useState } from 'react'
 
 import Banner from '../main/Banner'
-import itemsService from '../../services/itemsService'
+import tasksService from '../../services/tasksService'
 import AlertDialog from '../dialogs/AlertDialog'
 import useSelectionList from '../../hooks/useSelectionList'
 
@@ -35,7 +35,7 @@ const CheckList = () => {
 
     if (content) {
       try {
-        const newItem = await itemsService.createItem(content)
+        const newItem = await tasksService.createItem(content)
         setItems(items.concat(newItem))
       }
       catch (e) {
@@ -50,7 +50,7 @@ const CheckList = () => {
     if (content !== '' && content !== selectionList.get(0).content) {
       try {
         selectionList.get(0).content = content
-        await itemsService.updateItem(selectionList.get(0))
+        await tasksService.updateItem(selectionList.get(0))
         selectionList.clear()
       }
       catch (e) {
@@ -68,7 +68,7 @@ const CheckList = () => {
       try {
         const idsToDelete = selectionList.selectionList.map(task => task.id)
         
-        const promises = idsToDelete.map(id => itemsService.deleteItem(id))
+        const promises = idsToDelete.map(id => tasksService.deleteItem(id))
         const deleteSucceeded = await Promise.all(promises)
         
         selectionList.clear()
@@ -84,14 +84,14 @@ const CheckList = () => {
     setDialog(null)
 
   useEffect(() => {
-    itemsService.getAll()
+    tasksService.getAll()
       .then(items => setItems(items)) 
   }, [])
 
   return(
     <View>
       <Banner editCount={ selectionList.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
-      <CheckListItems items={ items } selectionList={ selectionList }/>
+      <TaskList items={ items } selectionList={ selectionList }/>
       { dialog }
       <ActionButton
         buttonColor={ colors.accent }
