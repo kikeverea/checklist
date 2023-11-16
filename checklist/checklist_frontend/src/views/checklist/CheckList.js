@@ -33,9 +33,13 @@ const CheckList = () => {
   const dismissCreateDialog = async (content) => {
     hideDialog()
 
+    const user = {
+      id: 1
+    }
+
     if (content) {
       try {
-        const newTask = await tasksService.createTask(content)
+        const newTask = await tasksService.createTask(user, content)
         setTasks(tasks.concat(newTask))
       }
       catch (e) {

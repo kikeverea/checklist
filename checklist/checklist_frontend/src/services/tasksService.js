@@ -14,8 +14,8 @@ const getAll = async () => {
     return res.data
 }
 
-const createTask = async (description) => {
-    const res = await axios.post(url(), { description })
+const createTask = async (user, description) => {
+    const res = await axios.post(url(), { created_by: user.id, description })
     return res.data
 }
 
