@@ -47,23 +47,29 @@ const CheckList = () => {
   const dismissEditDialog = async (content) => {
     hideDialog()
 
-    if (content !== '' && content !== selectionList.get(0).content) {
-      try {
-        selectionList.get(0).content = content
-        await tasksService.updateItem(selectionList.get(0))
-        selectionList.clear()
-      }
-      catch (e) {
-        console.error(e)
-      }
+    const editTask = selectionList.get(0)
+
+    // empty edits not allowed
+    if (content === '')
+      return
+
+    // same content, no further steps required
+    if (content === editTask.content)
+      return
+
+    try {
+      editTask.content = content
+      await tasksService.updateItem(editTask)
+      selectionList.clear()
+    }
+    catch (e) {
+      console.error(e)
     }
   }
 
   const dismissDeleteDialog = async confirmDelete => {
     hideDialog()
-
-    // continue here...
-
+    
     if (confirmDelete) {
       try {
         const idsToDelete = selectionList.selectionList.map(task => task.id)
@@ -82,6 +88,7 @@ const CheckList = () => {
 
   const hideDialog = () =>
     setDialog(null)
+
 
   useEffect(() => {
     tasksService.getAll()
