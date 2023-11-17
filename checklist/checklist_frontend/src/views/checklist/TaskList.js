@@ -46,16 +46,6 @@ const TaskList = ({ tasks, onTaskCompletedChange, selectionList }) => {
     [{ title: NO_TITLE, data: []}, { title: COMPLETED_TASKS_TITLE, data: []}]
   )
 
-  const renderSectionHeader = title =>
-    <>
-      {
-        title !== NO_TITLE && title === COMPLETED_TASKS_TITLE && sectioned[1].data.length > 0 &&
-        <View style={ styles.header }>
-          <Text style={ styles.title }>{ title }</Text>
-        </View>
-      }
-    </>
-  
   return (
     <View>
       <SectionList
@@ -63,7 +53,7 @@ const TaskList = ({ tasks, onTaskCompletedChange, selectionList }) => {
         sections={ sectioned }
         keyExtractor={(task) => task.id}
         contentContainerStyle={{ paddingBottom: 60 }}
-        renderSectionHeader={({section: {title}}) => renderSectionHeader(title)}
+        renderSectionHeader={({section: {title}}) => renderItemSeparator}
         ItemSeparatorComponent={ renderItemSeparator }
       />      
     </View>
