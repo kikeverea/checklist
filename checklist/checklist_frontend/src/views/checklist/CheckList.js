@@ -16,7 +16,8 @@ const CheckList = ({ user }) => {
 
   const styles = StyleSheet.create({
     container: {
-      height: screenHeight
+      height: screenHeight,
+      paddingBottom: 96
     },
     actionButton: {
       marginBottom: 16
