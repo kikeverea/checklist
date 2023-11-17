@@ -70,7 +70,7 @@ const CheckList = ({ user }) => {
       return
 
     try {
-      const edited = await tasksService.updateTaskDescription(editTask, content)
+      const edited = await tasksService.updateTaskDescription(user, editTask, content)
       setTasks(tasks.map(task => task.id === edited.id ? edited : task))
       selectionList.clear()
     }
