@@ -1,14 +1,27 @@
-import { View } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import TaskList from './TaskList'
 import InputDialog from '../dialogs/InputDialog'
-import { forwardRef, useEffect, useState, useImperativeHandle } from 'react'
+import { useEffect, useState } from 'react'
+import ActionButton from 'react-native-action-button'
 
 import Banner from '../main/Banner'
 import tasksService from '../../services/tasksService'
 import AlertDialog from '../dialogs/AlertDialog'
 import useSelectionList from '../../hooks/useSelectionList'
+import { colors } from '../../styles/styles'
 
-const CheckList = forwardRef((props, ref) => {
+const CheckList = ({ user }) => {
+
+  const screenHeight = Dimensions.get('window').height
+
+  const styles = StyleSheet.create({
+    container: {
+      height: screenHeight
+    },
+    actionButton: {
+      marginBottom: 16
+    }
+  })
 
   const [tasks, setTasks] = useState([])
   const [dialog, setDialog] = useState(null)
@@ -17,12 +30,6 @@ const CheckList = forwardRef((props, ref) => {
   const showCreateDialog = () => {
     setDialog(<InputDialog title='Nueva tarea' actionName='crear' dismiss={ dismissCreateDialog }/>)
   }
-
-  useImperativeHandle(ref, () => {
-    return {
-      showCreateDialog
-    }
-  })
 
   const showEditDialog = () => {
     const content = selectionList.get(0).content
@@ -39,7 +46,7 @@ const CheckList = forwardRef((props, ref) => {
 
     if (content) {
       try {
-        const newTask = await tasksService.createTask(props.user, content)
+        const newTask = await tasksService.createTask(user, content)
         setTasks(tasks.concat(newTask))
       }
       catch (e) {
@@ -93,7 +100,7 @@ const CheckList = forwardRef((props, ref) => {
 
   const onTaskCompletedChange = async (task, completed) => {
     task.completed = completed
-    const updated = await tasksService.updateCompletedState(props.user, task)
+    const updated = await tasksService.updateCompletedState(user, task)
     setTasks(tasks.map(task => task.id === updated.id ? updated : task))
   }
 
@@ -110,12 +117,20 @@ const CheckList = forwardRef((props, ref) => {
   }, [])
 
   return(
-    <View>
-      <Banner editCount={ selectionList.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
-      <TaskList tasks={ tasks } onTaskCompletedChange={ onTaskCompletedChange } selectionList={ selectionList }/>
-      { dialog }
-    </View>
+    <>
+      <View style={ styles.container }>
+        <Banner editCount={ selectionList.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
+        <TaskList tasks={ tasks } onTaskCompletedChange={ onTaskCompletedChange } selectionList={ selectionList }/>
+        { dialog }
+        <ActionButton
+          style={ styles.actionButton }
+          buttonColor={ colors.accent }
+          onPress={ () => showCreateDialog() } 
+        />
+      </View>
+      
+    </>
   )
-})
+}
 
 export default CheckList
