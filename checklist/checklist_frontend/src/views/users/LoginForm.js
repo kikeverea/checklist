@@ -13,7 +13,7 @@ const LoginForm = ({ onSubmit }) => {
 
   return (
     <Formik
-    initialValues={{ user: '' }}
+    initialValues={{ user: '', password: '' }}
     onSubmit={values => onSubmit(values)}
     >
       {({ handleChange, handleSubmit, values }) =>
