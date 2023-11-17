@@ -1,29 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckList from '../checklist/CheckList'
 import { View } from 'react-native'
+import { Route, Routes, Navigate, useNavigate } from 'react-router-native';
 import Login from '../users/Login'
-import ActionButton from 'react-native-action-button'
-import { colors } from '../../styles/styles'
 
 const Main = () => {
 
-  /*const user = {
-    id: 1
-  }*/
+  const [user, setUser] = useState(null)
 
-  const user = {
-    id: 1
-  }
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    navigate('login')
+  }, [])
 
   return(
-    <View style={{ paddingBottom: 96 }}>
-      {
-        user
-          ? <>
-              <CheckList user={ user }/>
-            </>
-          : <Login />
-      }
+    <View>
+      <Routes>
+        <Route path="/" element={ <CheckList user={ user }/> } />
+        <Route path="/login" element={ <Login /> } />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </View>
   )
 }
