@@ -1,6 +1,7 @@
-import { StyleSheet, Dimensions, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native"
+import { StyleSheet, Dimensions, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-const KeyboardSafeContainer = ({ style, children }) => {
+const KeyboardSafeScrollableContainer = ({ style, children }) => {
 
   const screenHeight = Dimensions.get('window').height
   const screenWidth = Dimensions.get('window').width
@@ -14,15 +15,15 @@ const KeyboardSafeContainer = ({ style, children }) => {
   })
 
   return (
-    <KeyboardAvoidingView
+    <KeyboardAwareScrollView
       behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
-      style={ styles.container }
+      contentContainerStyle={ styles.container }
     >
       <TouchableWithoutFeedback style={ styles.container } onPress={ ()=> Keyboard.dismiss() }>
         { children }
       </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   )
 }
 
-export default KeyboardSafeContainer
+export default KeyboardSafeScrollableContainer
