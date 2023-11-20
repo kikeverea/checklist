@@ -1,10 +1,10 @@
-import { StyleSheet, Dimensions } from "react-native"
-import { TextInput } from "react-native-paper"
+import { View, StyleSheet, Dimensions } from "react-native"
+import { TextInput, HelperText } from "react-native-paper"
 import { useState } from "react"
 import 'react-native-vector-icons/MaterialCommunityIcons'
 import { colors as themeColors } from "../../styles/styles"
 
-const FormInput = ({ name, label, value, isPassword, handleChange, ...props }) => {
+const FormInput = ({ name, label, value, isPassword, handleChange, error }) => {
 
   const [secureText, setSecureText] = useState(isPassword)
 
@@ -26,15 +26,21 @@ const FormInput = ({ name, label, value, isPassword, handleChange, ...props }) =
     {}
 
   return (
-    <TextInput
-      style={ styles.input }
-      theme={{ colors: { primary: themeColors.primary, underlineColor:'transparent',}}}
-      onChangeText={ handleChange(name) }
-      value={ value }
-      mode='outlined'
-      label={ label }
-      {...passwordProps}
-    />
+    <View>
+      <TextInput
+        style={ styles.input }
+        theme={{ colors: { primary: themeColors.primary, underlineColor:'transparent',}}}
+        onChangeText={ handleChange(name) }
+        value={ value }
+        mode='outlined'
+        label={ label }
+        {...passwordProps}
+      />
+      { error
+        ? <HelperText type="error" visible={ true }>{ error }</HelperText>
+        : null
+      }
+    </View>
   )
 }
 
