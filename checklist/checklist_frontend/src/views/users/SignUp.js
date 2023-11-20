@@ -1,8 +1,11 @@
 import { View } from "react-native"
 import { Dimensions, StyleSheet } from "react-native"
+import { useNavigate } from 'react-router-native';
+import Toast from 'react-native-toast-message'
 
 import SignUpForm from "./SignUpForm"
 import KeyboardSafeScrollableContainer from "../input/KeyboardSafeScrollableContainer"
+import usersService from "../../services/usersService"
 
 const Signup = () => {
 
@@ -19,10 +22,28 @@ const Signup = () => {
     }
   })
 
+  const navigate = useNavigate()
+
+  const signUp = async (values) => {
+    const res = await usersService.createNewUser(values)
+
+    if (res.success)
+      navigate('/login')
+    else 
+    {
+      Toast.show({
+        type: 'error',
+        text1: 'La cuenta no ha podido ser creada',
+        text2: `Error: ${ Object.keys(res.data).join(', ') }`,
+        position: 'bottom'
+      });
+    }
+  }
+
   return (
     <KeyboardSafeScrollableContainer style={ styles.container }>
       <View>
-          <SignUpForm onSubmit={ values => console.log(values) }/>
+          <SignUpForm onSubmit={ signUp }/>
       </View>
     </KeyboardSafeScrollableContainer>
   )
