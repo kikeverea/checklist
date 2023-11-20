@@ -12,7 +12,7 @@ const Main = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    navigate('signup')
+    navigate('/signup')
   }, [])
 
   return(
