@@ -1,0 +1,21 @@
+GET http://192.168.64.5:3000/users.json
+
+###
+
+#create user
+POST http://192.168.64.5:3000/users.json
+Content-Type: application/json
+
+{
+    "user" : {
+      "name": "Aitor Tilla",
+      "username": "aitortilla4",
+      "email": "aitortilla4@mail.com",
+      "password": "elvis",
+      "password_confirmation": "elvis"
+    }
+}
+
+###
+
+DELETE http://192.168.64.5:3000/users/2.json

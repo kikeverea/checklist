@@ -10,3 +10,13 @@ Content-Type: application/json
     "created_by" : 1
 }
 
+###
+
+PUT http://192.168.64.5:3000/tasks/10.json
+
+{
+  "task" : {
+    "description": "edited"
+    }
+}
+
