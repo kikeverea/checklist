@@ -1,10 +1,13 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import TaskItem from './TaskItem'
 import { StyleSheet } from 'react-native'
 import { SectionList } from 'react-native'
 import { colors } from '../../styles/styles'
 
 const TaskList = ({ tasks, onTaskCompletedChange, selectionList }) => {
+
+  const PENDING_TASKS_INDEX = 0
+  const COMPLETED_TASKS_INDEX = 1
 
   const COMPLETED_TASKS_TITLE = 'Completadas'
   const NO_TITLE = 'no_title'
@@ -35,16 +38,21 @@ const TaskList = ({ tasks, onTaskCompletedChange, selectionList }) => {
       removeFromEdit={ selectionList.remove }
     />
 
-  const sectioned = tasks.reduce(
-    (result, task) => {
-      const sectionIndex = task.completed ? 1 : 0
-      result[sectionIndex].data = result[sectionIndex].data
-        .concat(task)
-        .sort((task1, task2) => task1.id - task2.id)
-      return result
-    },
-    [{ title: NO_TITLE, data: []}, { title: COMPLETED_TASKS_TITLE, data: []}]
-  )
+  const sectioned = 
+    tasks.reduce(
+      (sectionedList, task) => {
+        const sectionIndex = task.completed ? COMPLETED_TASKS_INDEX : PENDING_TASKS_INDEX
+        const section = sectionedList[sectionIndex].data
+        
+        const updatedSection = section
+          .concat(task)                                 
+          .sort((task1, task2) => task1.id - task2.id)
+
+        sectionedList[sectionIndex].data = updatedSection
+        return sectionedList
+      },
+      [{ title: NO_TITLE, data: []}, { title: COMPLETED_TASKS_TITLE, data: []}]
+    )
 
   return (
     <View>
