@@ -15,7 +15,7 @@ const KeyboardSafeContainer = ({ style, children }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
+      behavior={ 'height' }
       style={ styles.container }
     >
       <TouchableWithoutFeedback style={ styles.container } onPress={ ()=> Keyboard.dismiss() }>
