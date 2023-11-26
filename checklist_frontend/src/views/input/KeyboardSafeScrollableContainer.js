@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Platform } from 'react-native'
 
 const KeyboardSafeScrollableContainer = ({ style, children }) => {
 

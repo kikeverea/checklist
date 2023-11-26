@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native"
+import { Platform } from "react-native"
 
 const KeyboardSafeContainer = ({ style, children }) => {
 
@@ -15,7 +16,7 @@ const KeyboardSafeContainer = ({ style, children }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={ 'height' }
+      behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
       style={ styles.container }
     >
       <TouchableWithoutFeedback style={ styles.container } onPress={ ()=> Keyboard.dismiss() }>

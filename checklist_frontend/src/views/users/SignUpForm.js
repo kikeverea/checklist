@@ -74,13 +74,13 @@ const SignUpForm = ({ onSubmit }) => {
           />
           <FormInput
             name='confirmPassword'
-            label='Confirmar Contraseña'
+            label='Repetir Contraseña'
             value={values.confirmPassword}
             error={ errors.confirmPassword }
             isPassword={ true }
             handleChange={ handleChange }
           />
-          <Button color={ colors.primary } onPress={handleSubmit} title="CREAR CUENTA" />
+          <Button color={ colors.primary } onPress={ handleSubmit } title="CREAR CUENTA" />
         </View>
       )}
       </Formik>

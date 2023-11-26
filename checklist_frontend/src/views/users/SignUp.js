@@ -7,7 +7,7 @@ import SignUpForm from "./SignUpForm"
 import KeyboardSafeScrollableContainer from "../input/KeyboardSafeScrollableContainer"
 import usersService from "../../services/usersService"
 
-const Signup = () => {
+const SignUp = () => {
 
   const screenHeight = Dimensions.get('window').height
   const screenWidth = Dimensions.get('window').width
@@ -49,4 +49,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default SignUp

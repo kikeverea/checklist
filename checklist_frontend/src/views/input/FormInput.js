@@ -28,6 +28,7 @@ const FormInput = ({ name, label, value, isPassword, handleChange, error }) => {
   return (
     <View>
       <TextInput
+        testID={ `form-input-${name}` }
         style={ styles.input }
         theme={{ colors: { primary: themeColors.primary, underlineColor:'transparent',}}}
         onChangeText={ handleChange(name) }
