@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { View, Button } from 'react-native'
-import FormInput from '../input/FormInput'
+import FormikTextInput from '../input/FormikTextInput'
 import { Formik } from 'formik'
 import { colors } from '../../styles/styles'
 import * as Yup from 'yup'
@@ -40,45 +40,30 @@ const SignUpForm = ({ onSubmit }) => {
         validationSchema={ validationSchema }
         onSubmit={values => onSubmit(values)}
       >
-      {({ handleChange, handleSubmit, values, errors }) =>
+      {({ handleSubmit }) =>
       (
         <View style={ styles.formContainer }>
-          <FormInput
+          <FormikTextInput
             name='name'
             label='Nombre'
-            value={values.name}
-            handleChange={ handleChange }
-            error={ errors.name }
           />
-          <FormInput
+          <FormikTextInput
             name='username'
             label='Usuario'
-            value={values.username}
-            handleChange={ handleChange }
-            error={ errors.username }
           />
-          <FormInput
+          <FormikTextInput
             name='email'
             label='Correo Electrónico'
-            value={values.email}
-            handleChange={ handleChange }
-            error={ errors.email }
           />
-          <FormInput
+          <FormikTextInput
             name='password'
             label='Contraseña'
-            value={values.password}
             isPassword={ true }
-            handleChange={ handleChange }
-            error={ errors.password }
           />
-          <FormInput
+          <FormikTextInput
             name='confirmPassword'
             label='Repetir Contraseña'
-            value={values.confirmPassword}
-            error={ errors.confirmPassword }
             isPassword={ true }
-            handleChange={ handleChange }
           />
           <Button color={ colors.primary } onPress={ handleSubmit } title="CREAR CUENTA" />
         </View>

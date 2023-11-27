@@ -1,10 +1,10 @@
 import { View, StyleSheet, Dimensions } from "react-native"
 import { TextInput, HelperText } from "react-native-paper"
-import { useState } from "react"
 import 'react-native-vector-icons/MaterialCommunityIcons'
-import { colors as themeColors } from "../../styles/styles"
+import { colors as themeColors } from '../../styles/styles'
+import { useState } from 'react'
 
-const FormInput = ({ name, label, value, isPassword, handleChange, error }) => {
+const FormInput = ({ name, label, value, setValue, setBlur, error, isPassword }) => {
 
   const [secureText, setSecureText] = useState(isPassword)
 
@@ -17,13 +17,12 @@ const FormInput = ({ name, label, value, isPassword, handleChange, error }) => {
     }
   })
 
-  const passwordProps = isPassword ? 
-    {
-      right: <TextInput.Icon icon="eye" onPress={ ()=> setSecureText(!secureText) }/>,
-      secureTextEntry: secureText
-    }
-    :
-    {}
+  const passwordProps = secureText ? 
+  {
+    right: <TextInput.Icon icon="eye" onPress={ ()=> setSecureText(!secureText) }/>,
+    secureTextEntry: secureText
+  }
+  : {}
 
   return (
     <View>
@@ -31,16 +30,14 @@ const FormInput = ({ name, label, value, isPassword, handleChange, error }) => {
         testID={ `form-input-${name}` }
         style={ styles.input }
         theme={{ colors: { primary: themeColors.primary, underlineColor:'transparent',}}}
-        onChangeText={ handleChange(name) }
+        onChangeText={ value => setValue(value) }
+        onBlur={ () => setBlur(true) }
         value={ value }
         mode='outlined'
         label={ label }
         {...passwordProps}
       />
-      { error
-        ? <HelperText type="error" visible={ true }>{ error }</HelperText>
-        : null
-      }
+      { error && <HelperText type="error" visible={ true }>{ error }</HelperText> }
     </View>
   )
 }

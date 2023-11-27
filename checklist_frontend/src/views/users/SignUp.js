@@ -27,16 +27,21 @@ const SignUp = () => {
   const signUp = async (values) => {
     const res = await usersService.createNewUser(values)
 
-    if (res.success)
+    if (res.success) {
+      Toast.show({
+        type: 'info',
+        text1: 'La cuenta ha sido creada',
+        position: 'bottom'
+      })
       navigate('/login')
-    else 
-    {
+    }
+    else {
       Toast.show({
         type: 'error',
         text1: 'La cuenta no ha podido ser creada',
         text2: `Error: ${ Object.keys(res.data).join(', ') }`,
         position: 'bottom'
-      });
+      })
     }
   }
 

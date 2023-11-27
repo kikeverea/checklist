@@ -1,6 +1,6 @@
 import { Formik } from "formik"
 import { View, Button, StyleSheet } from "react-native"
-import FormInput from "../input/FormInput"
+import FormikTextInput from '../input/FormikTextInput'
 import { colors } from "../../styles/styles"
 
 const LoginForm = ({ onSubmit }) => {
@@ -9,30 +9,26 @@ const LoginForm = ({ onSubmit }) => {
     formContainer: {
       gap: 16
     }
-  })
+  }) 
 
   return (
     <Formik
-    initialValues={{ user: '', password: '' }}
+    initialValues={{ username: '', password: '' }}
     onSubmit={values => onSubmit(values)}
     >
-      {({ handleChange, handleSubmit, values }) =>
+      {({ handleSubmit }) =>
       (
         <View style={ styles.formContainer }>
-          <FormInput
-            name='user'
+          <FormikTextInput
+            name='username'
             label='Usuario'
-            value={values.user}
-            handleChange={ handleChange }
           />
-          <FormInput
+          <FormikTextInput
             name='password'
             label='Contraseña'
-            value={values.password}
             isPassword={ true }
-            handleChange={ handleChange }
           />
-          <Button color={ colors.primary } onPress={handleSubmit} title="LOG IN" />
+          <Button color={ colors.primary } onPress={handleSubmit} title="INICIAR SESION" />
         </View>
       )}
     </Formik>
