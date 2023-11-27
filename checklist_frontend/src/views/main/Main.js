@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CheckList from '../checklist/CheckList'
 import { View } from 'react-native'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-native';
 import Login from '../users/Login'
 import Signup from '../users/SignUp'
+import UserContext from '../../contexts/UserContext';
 
 const Main = () => {
 
-  const [user, setUser] = useState(null)
+  const [user] = useContext(UserContext)
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    navigate('/signup')
+    if (!user) {
+      navigate('/login')
+    }
   }, [])
 
   return(
