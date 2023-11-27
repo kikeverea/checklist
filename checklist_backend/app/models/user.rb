@@ -10,7 +10,16 @@ class User < ApplicationRecord
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
 
+  before_save :username_downcase
+
   def as_json(_options={})
     { :id => self.id, :name => self.name, :username => self.username }
+  end
+
+  private
+
+  def username_downcase
+    self.username = username.downcase
+    self.email = email.downcase
   end
 end

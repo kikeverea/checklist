@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   
   resources :tasks, except: [:new, :edit] 
-  resources :users, except: [:new, :edit]
   resources :categories, except: [:new, :edit]
+  resources :users, only: [:create, :update, :delete]
+  get '/me', to: 'users#me'
+  post '/auth', to: 'auth#login'
 
 
   # Defines the root path route ("/")
