@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import CheckList from '../checklist/CheckList'
+import User from '../users/User'
 import { View } from 'react-native'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-native'
 import Login from '../users/Login'
@@ -12,20 +13,19 @@ const Main = () => {
   const [user, setUser] = useContext(UserContext)
 
   useEffect(() => {
-    console.log('use effect');
-    retrieveUser().then(user => {
-      if (user && user.info && user.token)
-        setUser(user)  
-    })
-    
+    retrieveUser()
+      .then(user => {
+        if (user && user.info && user.token)
+          setUser(user)  
+      })
+      .catch(e => console.error(e))
   }, [])
-
-  console.log('determine landing view with user:', user);
-  console.log('landing view', user ? 'checklist' : 'login');
 
   const landingView = user
     ? <CheckList />
     : <Login />
+
+  //const landingView = <User user={ user.info }/> 
 
   return(
     <View>

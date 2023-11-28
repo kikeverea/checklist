@@ -4,7 +4,7 @@ import InputDialog from '../dialogs/InputDialog'
 import { useContext, useEffect, useState } from 'react'
 import ActionButton from 'react-native-action-button'
 
-import Banner from '../main/Banner'
+import ChecklistActionBar from './ChecklistActionBar'
 import tasksService from '../../services/tasksService'
 import AlertDialog from '../dialogs/AlertDialog'
 import useTaskSelection from '../../hooks/useTaskSelection'
@@ -86,7 +86,7 @@ const CheckList = () => {
     
     if (confirmDelete) {
       try {
-        const idsToDelete = selectedTasks.ids
+        const idsToDelete = selectedTasks.ids()
         
         const promises = idsToDelete.map(id => tasksService.deleteTask(id))
         const deleteResult = await Promise.all(promises)
@@ -122,8 +122,8 @@ const CheckList = () => {
   return(
     <>
       <View style={ styles.container }>
-        <Banner editCount={ selectionList.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
-        <TaskList tasks={ tasks } onTaskCompletedChange={ onTaskCompletedChange } selectionList={ selectionList }/>
+        <ChecklistActionBar editCount={ selectedTasks.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
+        <TaskList tasks={ tasks } onTaskCompletedChange={ onTaskCompletedChange } />
         { dialog }
         <ActionButton
           style={ styles.actionButton }
