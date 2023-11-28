@@ -34,8 +34,28 @@ const loginUser = async (username, password) => {
   try {
     const res = await axios.post('http://192.168.64.5:3000/auth', { username, password })
 
-    success = res.status === 202
-    data = res.data
+    if (res.status === 202) {
+      if (!res.data.token) {
+        success = false
+        data = { error: 'Missing token' }
+      }
+      else if (!res.data.user) {
+        success = false
+        data = { error: 'Missing user info' }
+      }
+      else {
+        success = true
+        data = res.data
+      }
+    }
+    else if (res.status === 401) {
+      success = false
+      data = { error: 'Wrong credentials'}
+    }
+    else {
+      success = false
+      data = { error: `Failed with status code: ${res.status}`}
+    }
   }
   catch (e) {
     success = false

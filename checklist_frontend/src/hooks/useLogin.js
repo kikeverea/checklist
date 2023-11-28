@@ -1,5 +1,6 @@
 import usersService from '../services/usersService'
 import { useSetUser } from '../contexts/UserContext'
+import { persistUser } from '../services/userPersist'
 
 const useLogin = () => {
 
@@ -8,18 +9,14 @@ const useLogin = () => {
   const loginUser = async (credentials) => {
     try {
       const { success, data } = await usersService.loginUser(credentials.username, credentials.password)
-      
-      if (success) {
-        if (!data.token)
-          return { message: 'Missing token' }
-  
-        if (!data.user)
-          return { message: 'Missing ser info' }
 
-        setUser(data)
+      if (success) {
+        const user = await persistUser(data.user, data.token)
+        setUser(user)
       }
       else {
-        return { message: 'Wrong credentials' }
+        const error = data
+        return error
       }
     }
     catch (e) {
