@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { SectionList } from 'react-native'
 import { colors } from '../../styles/styles'
 
-const TaskList = ({ tasks, onTaskCompletedChange, selectionList }) => {
+const TaskList = ({ tasks, onTaskCompletedChange }) => {
 
   const PENDING_TASKS_INDEX = 0
   const COMPLETED_TASKS_INDEX = 1
@@ -32,10 +32,6 @@ const TaskList = ({ tasks, onTaskCompletedChange, selectionList }) => {
     <TaskItem
       task={ item }
       completedStateChange={ onTaskCompletedChange }
-      editing={ selectionList.length() > 0 }
-      inList={ selectionList.inList(item) }
-      addToEdit={ selectionList.add }
-      removeFromEdit={ selectionList.remove }
     />
 
   const sectioned = 

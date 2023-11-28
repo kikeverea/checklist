@@ -7,7 +7,7 @@ import ActionButton from 'react-native-action-button'
 import Banner from '../main/Banner'
 import tasksService from '../../services/tasksService'
 import AlertDialog from '../dialogs/AlertDialog'
-import useSelectionList from '../../hooks/useSelectionList'
+import useTaskSelection from '../../hooks/useTaskSelection'
 import { colors } from '../../styles/styles'
 import UserContext from '../../contexts/UserContext'
 
@@ -27,7 +27,7 @@ const CheckList = () => {
 
   const [tasks, setTasks] = useState([])
   const [dialog, setDialog] = useState(null)
-  const selectionList = useSelectionList()
+  const selectedTasks = useTaskSelection()
   const [user, setUser] = useContext(UserContext)
 
   const showCreateDialog = () => {
@@ -35,12 +35,12 @@ const CheckList = () => {
   }
 
   const showEditDialog = () => {
-    const content = selectionList.get(0).content
+    const content = selectedTasks.get(0).content
     setDialog(<InputDialog title='Editar tarea' actionName='editar' initialContent={ content } dismiss={ dismissEditDialog }/>)
   }
 
   const showDeleteDialog = () => {
-    const content = `¿Está seguro que desea elmininar ${ selectionList.length() === 1 ? 'esta entrada' : 'estas entradas' }?`
+    const content = `¿Está seguro que desea elmininar ${ selectedTasks.length() === 1 ? 'esta entrada' : 'estas entradas' }?`
     setDialog(<AlertDialog title='Eliminar tarea' content={ content } dismiss={ dismissDeleteDialog }/>)
   }
 
@@ -61,7 +61,7 @@ const CheckList = () => {
   const dismissEditDialog = async content => {
     hideDialog()
 
-    const editTask = selectionList.get(0)
+    const editTask = selectedTasks.get(0)
 
     // empty edits not allowed
     if (content === '')
@@ -74,7 +74,7 @@ const CheckList = () => {
     try {
       const edited = await tasksService.updateTaskDescription(user, editTask, content)
       setTasks(tasks.map(task => task.id === edited.id ? edited : task))
-      selectionList.clear()
+      selectedTasks.clear()
     }
     catch (e) {
       console.error(e)
@@ -86,13 +86,13 @@ const CheckList = () => {
     
     if (confirmDelete) {
       try {
-        const idsToDelete = selectionList.selectionList.map(task => task.id)
+        const idsToDelete = selectedTasks.ids
         
         const promises = idsToDelete.map(id => tasksService.deleteTask(id))
         const deleteResult = await Promise.all(promises)
         const deletedIds = idsToDelete.filter((_, index) => deleteResult[index])
 
-        selectionList.clear()
+        selectedTasks.clear()
         setTasks(tasks.filter(task => !deletedIds.includes(task.id)))
       }
       catch (e) {

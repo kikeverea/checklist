@@ -1,10 +1,13 @@
 import { Text, StyleSheet, Pressable } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
+import useTaskSelection from '../../hooks/useTaskSelection'
 import { colors } from '../../styles/styles'
 
-const TaskItem = ({ task, completedStateChange, editing, inList, addToEdit, removeFromEdit }) => {
+const Tasktask = ({ task, completedStateChange }) => {
 
-  const backgroundColor = inList ? colors.primaryLight : colors.defaultBackground
+  const selectedTasks = useTaskSelection()
+
+  const backgroundColor = selectedTasks.inList(task) ? colors.primaryLight : colors.defaultBackground
   const checkboxColor = task.completed ? colors.primaryLight : colors.primary
   const paddingLeft =  task.completed ? 32 : 16
 
@@ -20,20 +23,21 @@ const TaskItem = ({ task, completedStateChange, editing, inList, addToEdit, remo
   })
 
   const handlePress = () => {
-    if (editing)
-        handleEdit()
+    if (selectedTasks.length() > 0)
+        handleSelect()
   }
 
-  const handleEdit = () => {
-    if (inList) 
-        removeFromEdit(task)
-    
-    else 
-        addToEdit(task)
+  const handleSelect = () => {
+    if (selectedTasks.inList(task)) {
+      selectedTasks.remove(task)
+    }
+    else {
+      selectedTasks.add(task)
+    }
   }
 
   return (
-    <Pressable style={ styles.taskStyle } onPress={ () => handlePress() } onLongPress={ () => handleEdit() }>
+    <Pressable style={ styles.taskStyle } onPress={ () => handlePress() } onLongPress={ () => handleSelect() }>
       <BouncyCheckbox
         isChecked={ task.completed }
         onPress={() => { completedStateChange(task, !task.completed) }}
@@ -46,4 +50,4 @@ const TaskItem = ({ task, completedStateChange, editing, inList, addToEdit, remo
   )
 }
 
-export default TaskItem
+export default Tasktask
