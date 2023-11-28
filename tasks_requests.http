@@ -1,9 +1,13 @@
+@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOX0.hz5BTySZNwH2xsvofSwmewoeZJNkBQ9yRGr6MToD5z8
+
 GET http://192.168.64.5:3000/tasks.json
+Authorization: Bearer {{token}}
 
 ###
 
 POST http://192.168.64.5:3000/tasks.json
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "description": "test 10",
@@ -13,6 +17,8 @@ Content-Type: application/json
 ###
 
 PUT http://192.168.64.5:3000/tasks/10.json
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "task" : {

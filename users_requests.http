@@ -1,21 +1,35 @@
-GET http://192.168.64.5:3000/users.json
+@url = http://192.168.64.5:3000
+@user = 2
+@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOX0.hz5BTySZNwH2xsvofSwmewoeZJNkBQ9yRGr6MToD5z8
 
-###
+# Get all users
+GET {{url}}/users.json
+Authorization: Bearer {{token}}
 
-#create user
-POST http://192.168.64.5:3000/users.json
+### Create user
+
+POST {{url}}/users.json
 Content-Type: application/json
 
 {
     "user" : {
-      "name": "Aitor Tilla",
-      "username": "aitortilla4",
-      "email": "aitortilla4@mail.com",
-      "password": "elvis",
-      "password_confirmation": "elvis"
+      "name": "Elsa Pato",
+      "username": "user{{user}}",
+      "email": "user{{user}}@mail.com",
+      "password": "asdasd",
+      "password_confirmation": "asdasd"
     }
+}
+
+### Login
+POST {{url}}/auth
+Content-Type: application/json
+
+{
+    "username": "user{{user}}",
+    "password": "asdasd"
 }
 
 ###
 
-DELETE http://192.168.64.5:3000/users/2.json
+DELETE {{url}}/users/{{user}}.json

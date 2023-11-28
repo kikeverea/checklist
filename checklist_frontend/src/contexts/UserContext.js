@@ -5,17 +5,9 @@ const UserContext = createContext({
   setUser: () => {},
 })
 
-const getSetUser = () => {
+export const useSetUser = () => {
   const userContext = useContext(UserContext) // [user, setUser]
   return userContext[1]
-}
-
-export const useLogin = () =>
-  getSetUser()
-
-export const useLogout = () => {
-  const setUser = getSetUser()
-  return ()=> setUser(null)
 }
 
 export const UserContextProvider = ({ children }) => {

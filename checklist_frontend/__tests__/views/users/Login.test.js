@@ -1,6 +1,7 @@
 import { render, fireEvent, waitFor, screen } from '@testing-library/react-native'
 import LoginForm from '../../../src/views/users/LoginForm'
 import { act } from 'react-test-renderer'
+import usersService from '../../../src/services/usersService'
 
 jest.mock('react-router-native', () => ({
     ...jest.requireActual('react-router-native'),
@@ -48,5 +49,45 @@ describe('Log in form', () => {
       expect(onSubmit).toHaveBeenCalledTimes(1)
       expect(onSubmit).toHaveBeenCalledWith(expected)
     })
+  })
+})
+
+// TEMP USER
+/*"user" : {
+  "name": "Elsa Pato",
+  "username": "user{{user}}",
+  "email": "user{{user}}@mail.com",
+  "password": "asdasd",
+  "password_confirmation": "asdasd"
+}*/
+
+describe('Login service', () => {
+  it('returns success status and user data when login in successfully', async () => {
+    const credentials = {
+      username: 'user2',
+      password: 'asdasd'
+    }
+
+    const { success, data } = await usersService.loginUser(credentials.username, credentials.password)
+    const user = data.user
+
+    expect(success).toBe(true)
+    expect(user.name).toBe('Elsa Pato')
+    expect(user.username).toBe('user2')
+    expect(data.token).toBeDefined()
+
+  })
+
+  it('returns fail status and error message when login in fails', async () => {
+    const credentials = {
+      username: 'fake_user',
+      password: 'no_pass'
+    }
+
+    const { success, data } = await usersService.loginUser(credentials.username, credentials.password)
+
+    expect(success).toBe(false)
+    expect(data.user).not.toBeDefined()
+    expect(data.token).not.toBeDefined()
   })
 })

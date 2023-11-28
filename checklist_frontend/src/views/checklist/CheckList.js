@@ -1,7 +1,7 @@
 import { View, StyleSheet, Dimensions } from 'react-native'
 import TaskList from './TaskList'
 import InputDialog from '../dialogs/InputDialog'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ActionButton from 'react-native-action-button'
 
 import Banner from '../main/Banner'
@@ -9,8 +9,9 @@ import tasksService from '../../services/tasksService'
 import AlertDialog from '../dialogs/AlertDialog'
 import useSelectionList from '../../hooks/useSelectionList'
 import { colors } from '../../styles/styles'
+import UserContext from '../../contexts/UserContext'
 
-const CheckList = ({ user }) => {
+const CheckList = () => {
 
   const screenHeight = Dimensions.get('window').height
 
@@ -27,6 +28,7 @@ const CheckList = ({ user }) => {
   const [tasks, setTasks] = useState([])
   const [dialog, setDialog] = useState(null)
   const selectionList = useSelectionList()
+  const [user, setUser] = useContext(UserContext)
 
   const showCreateDialog = () => {
     setDialog(<InputDialog title='Nueva tarea' actionName='crear' dismiss={ dismissCreateDialog }/>)
@@ -110,7 +112,7 @@ const CheckList = ({ user }) => {
 
 
   useEffect(() => {
-    tasksService.getAll()
+    tasksService.getAll(user)
       .then(tasks => {
         setTasks(tasks)
       })

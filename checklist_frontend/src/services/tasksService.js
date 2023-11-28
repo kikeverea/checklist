@@ -9,8 +9,12 @@ const url = id => {
   return url + '.json'
 }
 
-const getAll = async () => {
-    const res =  await axios.get(url())
+const config = token => {
+  return ({ headers: { Authorization: `Bearer ${token}` } })
+}
+
+const getAll = async (user) => {
+    const res =  await axios.get(url(), config(user.token))
     return res.data
 }
 

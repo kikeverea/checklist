@@ -27,4 +27,21 @@ const createNewUser = async (values) => {
   return { success, data }
 }
 
-export default { createNewUser }
+const loginUser = async (username, password) => {
+  let success
+  let data
+
+  try {
+    const res = await axios.post('http://192.168.64.5:3000/auth', { username, password })
+
+    success = res.status === 202
+    data = res.data
+  }
+  catch (e) {
+    success = false
+    data = e.response.data
+  }
+  return { success, data }
+}
+
+export default { createNewUser, loginUser }
