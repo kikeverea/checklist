@@ -5,6 +5,7 @@ export const colors = {
   primaryDark: '#303F9F',
   primaryLight: '#C5CAE9',
   accent: '#00BCD4',
+  accentLight: '#7de2f0',
   divider: '#BDBDBD',
   icons: '#FFFFFF',
   defaultBackground: '#FFFFFF'

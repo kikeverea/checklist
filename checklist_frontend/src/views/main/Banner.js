@@ -1,16 +1,49 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, TouchableHighlight } from 'react-native'
 import { colors } from '../../styles/styles'
 
 const Banner = ({ editCount, onEdit, onDelete }) => {
 
-  const tilteAlign = editCount > 0 ? 'left' : 'center'
+  const UserIcon = ({ text }) => {
+    const styles = StyleSheet.create({
+      item: {
+        color:'white',
+        fontSize: 18,
+      },
+      roundshape: {
+        color: 'white',
+        backgroundColor: colors.accent,
+        justifyContent:'center',
+        alignItems:'center',
+        paddingBottom: 1,
+        height: 42,
+        width: 42,
+        borderRadius: 21    // height / 2
+      }
+    })
+
+    return (
+      <View>
+          <TouchableHighlight
+            style={ styles.roundshape }
+            activeOpacity={0.6}
+            underlayColor={ colors.accentLight }
+            onPress={() => console.log('Pressed!')}
+          >
+             <Text style={ styles.item }>{ text }</Text>
+          </TouchableHighlight>
+      </View>
+    )
+  }
 
   const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
       backgroundColor: colors.primaryDark,
-      padding: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
+      height: 60,
         
     },
     editPane: {
@@ -20,10 +53,6 @@ const Banner = ({ editCount, onEdit, onDelete }) => {
     text: {
       color: colors.icons,
       fontWeight: 'bold'
-    },
-    title: {
-      flexGrow: 1,
-      textAlign: tilteAlign
     }
   })
 
@@ -47,8 +76,9 @@ const Banner = ({ editCount, onEdit, onDelete }) => {
     </Pressable>
 
   return (
-    <View style={[ styles.container ]}>
-      <Text style={[ styles.text, styles.title ]}>Checklist</Text>
+    <View style={ styles.container }>
+      <Text style={styles.text}>Tareas</Text>
+      <UserIcon text='U' />
       { editCount >= 1 && editPane() }
     </View>
   )
