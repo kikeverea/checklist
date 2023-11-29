@@ -127,7 +127,7 @@ const CheckList = () => {
   return(
     <>
       <View style={ styles.container }>
-        <ChecklistActionBar editCount={ selectedTasks.length() } onEdit={ showEditDialog } onDelete={ showDeleteDialog }/>
+        <ChecklistActionBar onDelete={ showDeleteDialog }/>
         <TaskList tasks={ tasks } onTaskCompletedChange={ onTaskCompletedChange } />
         { dialog }
         <ActionButton

@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { useContext } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import UserIcon from '../users/UserIcon'
 import useTaskSelection from '../../hooks/useTaskSelection'
+import UserContext from '../../contexts/UserContext'
 import { colors } from '../../styles/styles'
 
 const ChecklistActionBar = ({ onDelete }) => {
@@ -25,6 +27,7 @@ const ChecklistActionBar = ({ onDelete }) => {
   })
 
   const selectedTasks = useTaskSelection()
+  const [user] = useContext(UserContext)
 
   const deleteButton = () => {
     return (
@@ -42,13 +45,18 @@ const ChecklistActionBar = ({ onDelete }) => {
     )
   }
 
+  const userInitial = () => {
+    const userInfo = user.info
+    return userInfo.name ? userInfo.name.charAt(0) : userInfo.username.charAt(0)
+  }
+
   return (
     <View style={ styles.container }>
       <View>
         { selectedTasks.length() === 0 ? <Text style={ styles.text }>Tareas</Text> : cancelDeleteButton() }
       </View>
       <View>
-        { selectedTasks.length() === 0 ? <UserIcon text='U' /> : deleteButton() }
+        { selectedTasks.length() === 0 ? <UserIcon text={ userInitial() } /> : deleteButton() }
       </View>
     </View>
   )
