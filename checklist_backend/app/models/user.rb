@@ -13,7 +13,7 @@ class User < ApplicationRecord
   before_save :username_downcase
 
   def as_json(_options={})
-    { :id => self.id, :name => self.name, :username => self.username }
+    { :id => self.id, :name => self.name, :username => self.username, :tasks => self.tasks }
   end
 
   private
