@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
-  has_many :user_tasks
+  has_many :user_tasks, dependent: :destroy
   has_many :users, through: :user_tasks
-  has_many :task_categories
+  has_many :task_categories, dependent: :destroy
   has_many :categories, through: :task_categories
 
   def as_json(_options={})
