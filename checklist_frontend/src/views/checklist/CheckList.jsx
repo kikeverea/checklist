@@ -28,7 +28,7 @@ const CheckList = () => {
   const [tasks, setTasks] = useState([])
   const [dialog, setDialog] = useState(null)
   const selectedTasks = useTaskSelection()
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useContext(UserContext)
 
   const showCreateDialog = () => {
     setDialog(<InputDialog title='Nueva tarea' actionName='crear' dismiss={ dismissCreateDialog }/>)
@@ -81,19 +81,24 @@ const CheckList = () => {
     }
   }
 
+  const deleteTasks = async tasks => {
+    const promises = tasks.map(task => tasksService.deleteTask(user, task))
+    const deleteResult = await Promise.all(promises)
+    const deletedTasks = tasks.filter((_, index) => deleteResult[index] === true)
+
+    return deletedTasks
+  }
+
   const dismissDeleteDialog = async confirmDelete => {
     hideDialog()
     
     if (confirmDelete) {
       try {
-        const idsToDelete = selectedTasks.ids()
+        const deletedTasks = await deleteTasks(selectedTasks.all())
+        const updatedTasks = tasks.filter(task => !deletedTasks.includes(task)) // tasks without tasks included in 'deletedTasks'
         
-        const promises = idsToDelete.map(id => tasksService.deleteTask(id))
-        const deleteResult = await Promise.all(promises)
-        const deletedIds = idsToDelete.filter((_, index) => deleteResult[index])
-
         selectedTasks.clear()
-        setTasks(tasks.filter(task => !deletedIds.includes(task.id)))
+        setTasks(updatedTasks)
       }
       catch (e) {
         console.error(e)

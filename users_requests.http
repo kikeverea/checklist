@@ -1,5 +1,5 @@
 @url = http://192.168.64.5:3000
-@user = 2
+@user = 3
 @token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOX0.hz5BTySZNwH2xsvofSwmewoeZJNkBQ9yRGr6MToD5z8
 
 # Get all users

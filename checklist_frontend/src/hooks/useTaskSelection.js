@@ -19,13 +19,13 @@ const useTaskSelection = () => {
   const inList = task =>
     selectedTasks.some(inList => inList.id === task.id)
 
-  const ids = () =>
-    selectedTasks.map(task => task.id)
+  const all = () =>
+    [...selectedTasks]
   
   const clear = () =>
     setSelectedTasks([])
 
-  return { ids, get, add, remove, inList, clear, length }
+  return { all, get, add, remove, inList, clear, length }
 }
 
 export default useTaskSelection
