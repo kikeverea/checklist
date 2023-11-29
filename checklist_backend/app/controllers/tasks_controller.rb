@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[ show update destroy ]
+  before_action :user_has_modify_permission, only: %i[ update destroy ]
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    render json: @user.tasks
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -12,7 +13,8 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(create_params)
+    @task = Task.new(create_params.merge(:created_by => @user.id))
+    @user.tasks << @task
 
     respond_to do |format|
       if @task.save
@@ -26,7 +28,7 @@ class TasksController < ApplicationController
   end
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
-  def update
+  def update    
     respond_to do |format|
       if @task.update(update_params)
         format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
@@ -54,13 +56,26 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    # ensures only users that share/own this task can modify it
+    def user_has_modify_permission
+      task_owners = @task.users.map { |user| user.id }
+      has_modify_permission = task_owners.include? @user.id
+
+      unless has_modify_permission
+        respond_to do |format|
+          format.html { render :edit, status: :forbidden }
+          format.json { render json: { error: 'User not allowed to modify this task'}, status: :forbidden }
+        end
+      end
+    end
+
     # Only allow a list of trusted parameters through.
     def create_params
-      params.require(:task).permit(:description, :created_by)
+      params.require(:task).permit(:description)
     end
 
     # Only allow a list of trusted parameters through.
     def update_params
-      params.require(:task).permit(:description, :completed, :updated_by)
+      params.require(:task).permit(:description, :completed)
     end
 end
