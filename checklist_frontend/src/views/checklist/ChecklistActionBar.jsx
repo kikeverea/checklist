@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import UserIcon from '../users/UserIcon'
@@ -28,6 +29,7 @@ const ChecklistActionBar = ({ onDelete }) => {
 
   const selectedTasks = useTaskSelection()
   const [user] = useContext(UserContext)
+  const navigate = useNavigate()
 
   const deleteButton = () => {
     return (
@@ -45,18 +47,13 @@ const ChecklistActionBar = ({ onDelete }) => {
     )
   }
 
-  const userInitial = () => {
-    const userInfo = user.info
-    return userInfo.name ? userInfo.name.charAt(0) : userInfo.username.charAt(0)
-  }
-
   return (
     <View style={ styles.container }>
       <View>
         { selectedTasks.length() === 0 ? <Text style={ styles.text }>Tareas</Text> : cancelDeleteButton() }
       </View>
       <View>
-        { selectedTasks.length() === 0 ? <UserIcon text={ userInitial() } /> : deleteButton() }
+        { selectedTasks.length() === 0 ? <UserIcon userInfo={ user.info } doAction={ () => navigate('/user') } color={ colors.accent }/> : deleteButton() }
       </View>
     </View>
   )

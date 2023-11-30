@@ -6,6 +6,11 @@
 GET {{url}}/users.json
 Authorization: Bearer {{token}}
 
+### Me
+GET {{url}}/users/29.json
+Authorization: Bearer {{token}}
+
+
 ### Create user
 
 POST {{url}}/users.json
@@ -32,4 +37,5 @@ Content-Type: application/json
 
 ###
 
-DELETE {{url}}/users/{{user}}.json
+DELETE {{url}}/users/28.json
+Authorization: Bearer {{token}}

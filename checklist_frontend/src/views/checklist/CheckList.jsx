@@ -18,7 +18,7 @@ const CheckList = () => {
   const styles = StyleSheet.create({
     container: {
       height: screenHeight,
-      paddingBottom: 96
+      paddingBottom: 48
     },
     actionButton: {
       marginBottom: 16

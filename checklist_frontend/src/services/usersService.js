@@ -2,6 +2,13 @@ import axios from "axios"
 
 const url = 'http://192.168.64.5:3000/users.json'
 
+const me = async user => {
+  const url = `http://192.168.64.5:3000/users/${user.info.id}`
+  const res = await axios.get(url, { headers: { Authorization: `Bearer ${user.token}` } })
+
+  return res.data
+}
+
 const createNewUser = async (values) => {
   const user = {
     user: {
@@ -64,4 +71,4 @@ const loginUser = async (username, password) => {
   return { success, data }
 }
 
-export default { createNewUser, loginUser }
+export default { me, createNewUser, loginUser }

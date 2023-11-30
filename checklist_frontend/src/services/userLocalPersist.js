@@ -4,19 +4,28 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const nameSpace = 'innobing.kikeverea'
 const key = `${nameSpace}:user`
 
-export const persistUser = async (userInfo, token) => {
+const save = async (userInfo, token) => {
   await Keychain.setGenericPassword('token', token)
   await AsyncStorage.setItem(key, JSON.stringify(userInfo))
 
   const user = {
-    info: { ...user },
+    info: { ...userInfo },
     token
   }
 
   return user
 }
 
-export const retrieveUser = async () => {
+const remove = async () => {
+  await AsyncStorage.removeItem(key)
+
+  const tokenRemoved = await Keychain.resetGenericPassword()
+  const userRemoved = await AsyncStorage.getItem(key) === null
+
+  return tokenRemoved && userRemoved
+}
+
+const get = async () => {
   const keychain = await Keychain.getGenericPassword()
   const infoJson = await AsyncStorage.getItem(key)
   
@@ -30,3 +39,5 @@ export const retrieveUser = async () => {
 
   return user
 }
+
+export default { save, remove, get }

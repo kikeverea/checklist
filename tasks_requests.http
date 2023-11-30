@@ -1,12 +1,11 @@
 @token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOX0.hz5BTySZNwH2xsvofSwmewoeZJNkBQ9yRGr6MToD5z8
-@test=12
 
 # GET ALL
 GET http://192.168.64.5:3000/tasks.json
 Authorization: Bearer {{token}}
 
 ###
-
+@test=8
 POST http://192.168.64.5:3000/tasks.json
 Content-Type: application/json
 Authorization: Bearer {{token}}

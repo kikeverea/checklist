@@ -52,15 +52,6 @@ describe('Log in form', () => {
   })
 })
 
-// TEMP USER
-/*"user" : {
-  "name": "Elsa Pato",
-  "username": "user{{user}}",
-  "email": "user{{user}}@mail.com",
-  "password": "asdasd",
-  "password_confirmation": "asdasd"
-}*/
-
 describe('Login service', () => {
   it('returns success status and user data when login in successfully', async () => {
     const credentials = {
