@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
   before_action :set_user, only: %i[ show edit update destroy ]
 
+  def show
+    render json: @user.show_all
+  end
+
   # POST /users or /users.json
   def create
     user_params[:password_digest] = user_params[:password]
@@ -28,8 +32,6 @@ class UsersController < ApplicationController
       end
     end
   end
-
-
 
   # PATCH/PUT /users/1 or /users/1.json
   def update

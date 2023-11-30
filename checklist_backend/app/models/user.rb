@@ -16,6 +16,10 @@ class User < ApplicationRecord
     { :id => self.id, :name => self.name, :username => self.username, :tasks => self.tasks }
   end
 
+  def show_all
+    { :id => self.id, :name => self.name, :username => self.username, :email => self.email, :created_at => self.created_at }
+  end
+
   private
 
   def username_downcase

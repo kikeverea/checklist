@@ -14,10 +14,5 @@ Rails.application.routes.draw do
   resources :tasks, except: [:new, :edit] 
   resources :categories, except: [:new, :edit]
   resources :users, only: [:create, :update, :delete]
-  get '/me', to: 'users#me'
   post '/auth', to: 'auth#login'
-
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end
