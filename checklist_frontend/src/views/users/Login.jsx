@@ -4,13 +4,14 @@ import { Text, Dimensions } from 'react-native'
 import { colors } from '../../styles/styles'
 import KeyboardSafeContainer from '../input/KeyboardSafeContainer'
 import useSession from '../../hooks/useSession'
-import { useNavigate } from 'react-router-native'
+import { useNavigate, Link } from 'react-router-native'
 import Toast from 'react-native-toast-message'
 
 const Login = () => {
 
   const screenHeight = Dimensions.get('window').height
   const screenWidth = Dimensions.get('window').width
+
   const [login] = useSession()
   const navigate = useNavigate()
 
@@ -51,9 +52,9 @@ const Login = () => {
       <View style={ [styles.container, styles.formContainer] }>
         <LoginForm onSubmit={ loginUser }/>
         <View>
-          <Text>
-            o crear cuenta nueva
-          </Text>
+          <Link to='/signup'>
+            <Text>o crear cuenta nueva</Text>
+          </Link>
         </View>
       </View>
     </KeyboardSafeContainer>
