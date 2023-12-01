@@ -2,7 +2,7 @@ import usersService from '../services/usersService'
 import { useSetUser } from '../contexts/UserContext'
 import userLocalPersist from '../services/userLocalPersist'
 
-const useSession = () => {
+const useUserAccount = () => {
 
   const setUser = useSetUser()
 
@@ -17,8 +17,7 @@ const useSession = () => {
         return { success }
       }
       else {
-        const error = data
-        return { success, error }
+        return { success, error: data.error }
       }
     }
     catch (e) {
@@ -28,7 +27,7 @@ const useSession = () => {
   }
 
   const logout = async () => {
-    try  {
+    try {
       await userLocalPersist.remove()
     }
     finally {
@@ -37,7 +36,12 @@ const useSession = () => {
     }
   }
 
-  return [login, logout]
+  const deleteAccout = async user => {
+    await logout()
+    await usersService.deleteUser(user)
+  }
+
+  return [login, logout, deleteAccout]
 }
 
-export default useSession
+export default useUserAccount
