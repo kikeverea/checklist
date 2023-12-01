@@ -5,10 +5,11 @@ import UserIcon from './UserIcon'
 import UserContext from '../../contexts/UserContext'
 import { colors } from '../../styles/styles'
 import usersService from '../../services/usersService'
-import useSession from '../../hooks/useSession'
+import useUserAccount from '../../hooks/useUserAccount'
 import { useNavigate } from 'react-router-native'
 import Banner from '../main/Banner'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import DeleteUserDialog from '../dialogs/DeleteUserDialog'
 
 const User = () => {
 
@@ -45,34 +46,47 @@ const User = () => {
       padding: 8,
       borderRadius: 4,
       borderWidth: 1,
-      borderColor: '#cc0000',
+      borderColor: colors.critical,
     },
     deleteContainer: {
       flex: 1,
       justifyContent: 'flex-end'
+    },
+    deleteButtonText: {
+      color: colors.critical
     }
   })
 
   const [userInfo, setUserInfo] = useState(null)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
   const navigate = useNavigate()
-  const [_, logout] = useSession()
+  const [_, logout, deleteAccount] = useUserAccount()
   const [user] = useContext(UserContext)
 
   useEffect(() => {
     usersService.me(user).then(user => setUserInfo(user))
   }, [])
 
-  const DeleteButton = () => {
-    return (
-      <TouchableOpacity style={ styles.deleteButton }>
-        <Text style={{ color: '#cc0000' }}>ELIMINAR CUENTA</Text>
-      </TouchableOpacity>
-    )
-  }
-
   const logoutUser = async () => {
     await logout()
     navigate('/login')
+  }
+
+  const dismissDeleteDialog = async doDelete => { 
+    setShowDeleteDialog(false)
+
+    if (doDelete) {
+      await deleteAccount(user)
+      navigate('/login')
+    }
+  }
+
+  const DeleteButton = ({ onPress }) => {
+    return (
+      <TouchableOpacity style={ styles.deleteButton } onPress={ onPress }>
+        <Text style={ styles.deleteButtonText }>ELIMINAR CUENTA</Text>
+      </TouchableOpacity>
+    )
   }
 
   if (userInfo === null)
@@ -80,6 +94,7 @@ const User = () => {
 
   return (
     <View style={ styles.container }>
+      { showDeleteDialog && <DeleteUserDialog dismiss={ dismissDeleteDialog }/> }
       <Banner>
         <Pressable onPress={ () => navigate(-1) } >
           <Icon name='arrow-left' size={24} color='#FFF' />
@@ -99,9 +114,8 @@ const User = () => {
           onPress={ ()=> logoutUser() }
         />
       </View>
-      
       <View style={ styles.deleteContainer }>
-        <DeleteButton />
+        <DeleteButton onPress={ () => setShowDeleteDialog(true) }/>
       </View>
     </View>
   )

@@ -9,5 +9,6 @@ export const colors = {
   accentLight: '#7de2f0',
   divider: '#BDBDBD',
   icons: '#FFFFFF',
+  critical: '#CC0000',
   defaultBackground: '#FFFFFF'
 }

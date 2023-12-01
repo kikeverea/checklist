@@ -69,4 +69,9 @@ const loginUser = async (username, password) => {
   return { success, data }
 }
 
-export default { me, createNewUser, loginUser }
+const deleteUser = async user => {
+  const url = `http://192.168.64.5:3000/users/${user.info.id}`
+  await axios.delete(url, { headers: { Authorization: `Bearer ${user.token}` } })
+}
+
+export default { me, createNewUser, loginUser, deleteUser }
