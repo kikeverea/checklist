@@ -1,11 +1,11 @@
-import { View } from "react-native"
-import { Dimensions, StyleSheet } from "react-native"
-import { useNavigate } from 'react-router-native';
+import { View } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
+import { useNavigate } from 'react-router-native'
 import Toast from 'react-native-toast-message'
 
-import SignUpForm from "./SignUpForm"
-import KeyboardSafeScrollableContainer from "../input/KeyboardSafeScrollableContainer"
-import usersService from "../../services/usersService"
+import SignUpForm from './SignUpForm'
+import KeyboardSafeScrollableContainer from '../input/KeyboardSafeScrollableContainer'
+import usersService from '../../services/usersService'
 
 const SignUp = () => {
 
