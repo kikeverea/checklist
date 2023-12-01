@@ -1,16 +1,48 @@
 import React, { useContext, useEffect } from 'react'
 import CheckList from '../checklist/CheckList'
 import User from '../users/User'
-import { View } from 'react-native'
-import { Route, Routes, Navigate } from 'react-router-native'
+import { View, Platform, BackHandler, Alert } from 'react-native'
+import { Route, Routes, Navigate, useNavigate } from 'react-router-native'
 import Login from '../users/Login'
 import Signup from '../users/SignUp'
 import UserContext from '../../contexts/UserContext'
 import userLocalPersist from '../../services/userLocalPersist'
+import { useBackHandler } from '@react-native-community/hooks'
+import { useLocation } from 'react-router-native'
 
 const Main = () => {
 
   const [user, setUser] = useContext(UserContext)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  useBackHandler(() => {
+    // Handle event only for android OS; this handling code uses react native´s BackHandler,
+    // which only works with android
+    if (Platform.OS !== 'android') 
+      return false
+    
+    if (location.pathname === '/signup') {
+      navigate('login')
+    }
+    else {
+      launchExitAlert()
+    }
+    return true
+  })
+
+  const launchExitAlert = () =>
+    Alert.alert('Salir', '¿Deseas salir de la aplicación?', [
+      {
+        text: 'Cancelar',
+        onPress: () => {}, // do nothing
+        style: 'cancel',
+      },
+      {
+        text: 'Salir',
+        onPress: () => BackHandler.exitApp()
+      }
+    ]);
 
   useEffect(() => {
     userLocalPersist.get()
