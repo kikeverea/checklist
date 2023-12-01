@@ -55,18 +55,16 @@ const loginUser = async (username, password) => {
         data = res.data
       }
     }
-    else if (res.status === 401) {
-      success = false
-      data = { error: 'Wrong credentials'}
-    }
-    else {
-      success = false
-      data = { error: `Failed with status code: ${res.status}`}
-    }
   }
   catch (e) {
+    const res = e.response
     success = false
-    data = e.response.data
+
+    if (res.status === 401)
+      data = { error: 'Wrong credentials'}
+
+    else
+      data = { error: `Failed with status code: ${res.status}`}
   }
   return { success, data }
 }
