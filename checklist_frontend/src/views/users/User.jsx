@@ -1,4 +1,4 @@
-import { View, Text, Button, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, Pressable, Button, Dimensions, TouchableOpacity } from 'react-native'
 import { useState, useContext, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import UserIcon from './UserIcon'
@@ -7,6 +7,8 @@ import { colors } from '../../styles/styles'
 import usersService from '../../services/usersService'
 import useSession from '../../hooks/useSession'
 import { useNavigate } from 'react-router-native'
+import Banner from '../main/Banner'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const User = () => {
 
@@ -15,11 +17,16 @@ const User = () => {
   const styles = StyleSheet.create({
     container: {
       height: screenHeight,
+      justifyContent: 'flex-start',
       alignItems: 'center',
-      paddingVertical: 48,
+      paddingBottom: 48
+    },
+    userInfoContainer: {
+      paddingVertical: 32,
+      alignItems: 'center',
       gap: 8
     },
-    subContainer: {
+    userInfo: {
       alignItems: 'center'
     },
     name : {
@@ -55,9 +62,6 @@ const User = () => {
     usersService.me(user).then(user => setUserInfo(user))
   }, [])
 
-  if (userInfo === null)
-    return null
-
   const DeleteButton = () => {
     return (
       <TouchableOpacity style={ styles.deleteButton }>
@@ -71,20 +75,31 @@ const User = () => {
     navigate('/login')
   }
 
+  if (userInfo === null)
+    return null
+
   return (
     <View style={ styles.container }>
-      <UserIcon userInfo={ userInfo } size={ 2 } color={ colors.primaryDark } />
-      <View style={ styles.subContainer }>
-        <Text style={ styles.name }>{ userInfo.name }</Text>
-        <Text>{ userInfo.username }</Text>
-        <Text style={ styles.email }>{ userInfo.email }</Text>
+      <Banner>
+        <Pressable onPress={ () => navigate(-1) } >
+          <Icon name='arrow-left' size={24} color='#FFF' />
+        </Pressable>
+      </Banner>
+      <View style={ styles.userInfoContainer }>
+        <UserIcon userInfo={ userInfo } size={ 2 } color={ colors.primaryDark } />
+        <View style={ styles.userInfo }>
+          <Text style={ styles.name }>{ userInfo.name }</Text>
+          <Text>{ userInfo.username }</Text>
+          <Text style={ styles.email }>{ userInfo.email }</Text>
+        </View>
+        <Button
+          title='Cerrar Sesión'
+          style={ styles.logoutButton }
+          color={ colors.secondary }
+          onPress={ ()=> logoutUser() }
+        />
       </View>
-      <Button
-        title='Cerrar Sesión'
-        style={ styles.logoutButton }
-        color={ colors.secondary }
-        onPress={ ()=> logoutUser() }
-      />
+      
       <View style={ styles.deleteContainer }>
         <DeleteButton />
       </View>
