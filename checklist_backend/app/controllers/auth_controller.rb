@@ -5,7 +5,7 @@ class AuthController < ApplicationController
   def login 
       @user = User.find_by('email = :login OR username = :login', {login: login_params[:username]})
       
-      if @user.authenticate(login_params[:password])
+      if @user && @user.authenticate(login_params[:password])
           @token = encode_token(user_id: @user.id)
           render json: {
               user: @user.as_json,
@@ -19,7 +19,7 @@ class AuthController < ApplicationController
   private 
 
   def login_params 
-      params.permit(:username, :password)
+      params.require(:auth).permit(:username, :password)
   end
 
   def handle_record_not_found(e)
