@@ -76,8 +76,15 @@ const User = () => {
     setShowDeleteDialog(false)
 
     if (doDelete) {
-      await deleteAccount(user)
-      navigate('/login')
+      try {
+        await deleteAccount(user)
+      }
+      catch (e) {
+        console.error(e.response ? e.response : e)
+      }
+      finally {
+        navigate('/login')
+      }
     }
   }
 
