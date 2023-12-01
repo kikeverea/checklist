@@ -21,9 +21,9 @@ const Main = () => {
     // which only works with android
     if (Platform.OS !== 'android') 
       return false
-    
-    if (location.pathname === '/signup') {
-      navigate('login')
+
+    if (location.pathname === '/signup' || location.pathname === '/user') {
+      navigate(-1)
     }
     else {
       launchExitAlert()
