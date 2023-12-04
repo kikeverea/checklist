@@ -49,7 +49,9 @@ const UserIcon = ({ userInfo = { name: '?' }, doAction, size = 1, color }) => {
     )
   }
 
-  return wrapInContainer(<Text style={ styles.item }>{ userInitial }</Text>)
+  return wrapInContainer(
+    <Text style={ styles.item }>{ userInitial }</Text>
+  )
 }
 
 export default UserIcon

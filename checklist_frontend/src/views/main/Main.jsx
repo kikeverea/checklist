@@ -5,6 +5,7 @@ import { View, Platform, BackHandler, Alert } from 'react-native'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-native'
 import Login from '../users/Login'
 import Signup from '../users/SignUp'
+import Task from '../checklist/Task'
 import UserContext from '../../contexts/UserContext'
 import userLocalPersist from '../../services/userLocalPersist'
 import { useBackHandler } from '@react-native-community/hooks'
@@ -19,6 +20,7 @@ const Main = () => {
   useBackHandler(() => {
     // Handle event only for android OS; this handling code uses react native´s BackHandler,
     // which only works with android
+
     if (Platform.OS !== 'android') 
       return false
 
@@ -57,12 +59,11 @@ const Main = () => {
     ? <CheckList />
     : <Login />
 
-  //const landingView = <User user={ user.info }/> 
-
   return(
     <View>
       <Routes>
         <Route path="/" element={ landingView } />
+        <Route path="/task/:id" element={ <Task /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/signup" element={ <Signup /> } />
         <Route path="/user" element={ <User /> } />

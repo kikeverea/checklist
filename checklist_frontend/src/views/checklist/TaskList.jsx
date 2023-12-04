@@ -57,7 +57,7 @@ const TaskList = ({ tasks, onTaskCompletedChange }) => {
         sections={ sectioned }
         keyExtractor={(task) => task.id}
         contentContainerStyle={{ paddingBottom: 60 }}
-        renderSectionHeader={({section: {title}}) => renderItemSeparator}
+        renderSectionHeader={() => renderItemSeparator}
         ItemSeparatorComponent={ renderItemSeparator }
       />      
     </View>

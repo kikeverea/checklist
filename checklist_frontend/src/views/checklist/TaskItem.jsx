@@ -1,4 +1,5 @@
-import { Text, StyleSheet, Pressable } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { useNavigate } from 'react-router-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import useTaskSelection from '../../hooks/useTaskSelection'
 import { colors } from '../../styles/styles'
@@ -6,6 +7,7 @@ import { colors } from '../../styles/styles'
 const Tasktask = ({ task, completedStateChange }) => {
 
   const selectedTasks = useTaskSelection()
+  const navigate = useNavigate()
 
   const backgroundColor = selectedTasks.inList(task) ? colors.primaryLight : colors.defaultBackground
   const checkboxColor = task.completed ? colors.primaryLight : colors.primary
@@ -25,6 +27,9 @@ const Tasktask = ({ task, completedStateChange }) => {
   const handlePress = () => {
     if (selectedTasks.length() > 0)
         handleSelect()
+    else {
+      navigate(`/task/${task.id}`)
+    }
   }
 
   const handleSelect = () => {
@@ -37,7 +42,7 @@ const Tasktask = ({ task, completedStateChange }) => {
   }
 
   return (
-    <Pressable style={ styles.taskStyle } onPress={ () => handlePress() } onLongPress={ () => handleSelect() }>
+    <TouchableOpacity style={ styles.taskStyle } onPress={ () => handlePress() } onLongPress={ () => handleSelect() }>
       <BouncyCheckbox
         isChecked={ task.completed }
         onPress={() => { completedStateChange(task, !task.completed) }}
@@ -46,7 +51,7 @@ const Tasktask = ({ task, completedStateChange }) => {
         iconStyle={{ borderColor: colors.primary }}
       />
       <Text>{ task.description }</Text>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 
