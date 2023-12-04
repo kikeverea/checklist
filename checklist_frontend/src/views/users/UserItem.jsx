@@ -2,8 +2,10 @@ import { StyleSheet, View, Text } from 'react-native'
 import UserIcon from './UserIcon'
 import { colors } from '../../styles/styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import useUserQuery from '../../hooks/useUserQuery'
 
-const UserItem = ({ user }) => {
+
+const UserItem = ({ userId }) => {
   
   const styles = StyleSheet.create({
     container: {
@@ -16,13 +18,15 @@ const UserItem = ({ user }) => {
       flex: 1
     }
   })
+
+  const [user, loading] = useUserQuery(userId)
   
   return (
-    <View style={ styles.container }>
-      <UserIcon userInfo={ user.info } color={ colors.primaryDark }/>
-      <Text style={ styles.usernameContainer }>{ user.info.name ? user.info.name : user.info.username }</Text>
-      <Icon name='close' size={ 14 }/>
-    </View>
+      !loading &&
+      <View style={ styles.container }><UserIcon userInfo={ user } color={ colors.primaryDark }/>
+        <Text style={ styles.usernameContainer }>{ user.name ? user.name : user.username }</Text>
+        <Icon name='close' size={ 14 }/>
+      </View>
   )
 }
 
