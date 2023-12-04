@@ -1,11 +1,12 @@
-@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOX0.hz5BTySZNwH2xsvofSwmewoeZJNkBQ9yRGr6MToD5z8
+@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0M30.S3IEr8dRroDCeVqaWaNeQcT6joG_4KCACHviCtcK-JE
 
 # GET ALL
 GET http://192.168.64.5:3000/tasks.json
 Authorization: Bearer {{token}}
 
-###
-@test=8
+### CREATE TASK
+
+@test=9
 POST http://192.168.64.5:3000/tasks.json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -14,7 +15,7 @@ Authorization: Bearer {{token}}
     "description": "test {{test}}"
 }
 
-###
+### UPDATE 
 
 PUT http://192.168.64.5:3000/tasks/23.json
 Content-Type: application/json
@@ -26,7 +27,7 @@ Authorization: Bearer {{token}}
     }
 }
 
-###
+### DELETE TASK
  
 DELETE http://192.168.64.5:3000/tasks/23.json
 Authorization: Bearer {{token}}

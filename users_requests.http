@@ -1,18 +1,17 @@
 @url = http://192.168.64.5:3000
-@user = 3
-@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOX0.hz5BTySZNwH2xsvofSwmewoeZJNkBQ9yRGr6MToD5z8
+@user = 12
+@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0MH0.R3HIHcuV6r_9gx6OgJgau1iaE1N980-L9bwr_KBlcSM
 
 # Get all users
 GET {{url}}/users.json
 Authorization: Bearer {{token}}
 
 ### Me
-GET {{url}}/users/29.json
+GET {{url}}/users/40.json
 Authorization: Bearer {{token}}
 
 
 ### Create user
-
 POST {{url}}/users.json
 Content-Type: application/json
 
@@ -31,11 +30,13 @@ POST {{url}}/auth
 Content-Type: application/json
 
 {
-    "username": "user{{user}}",
-    "password": "asdasd"
+    "auth" : {
+      "username": "user{{user}}",
+      "password": "asdasd"
+    }
 }
 
 ###
 
-DELETE {{url}}/users/28.json
+DELETE {{url}}/users/37
 Authorization: Bearer {{token}}

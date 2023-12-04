@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message'
 import Main from './src/views/main/Main'
 import { UserContextProvider } from './src/contexts/UserContext'
 import { SelectedTasksContextProvider } from './src/contexts/SelectedTasksContext'
+import { TasksContextProvider } from './src/contexts/TasksContext'
 
 const App = () => {
 
@@ -12,9 +13,11 @@ const App = () => {
     <>
       <NativeRouter>
         <UserContextProvider>
-          <SelectedTasksContextProvider>
-            <Main/>
-          </SelectedTasksContextProvider>
+          <TasksContextProvider>
+            <SelectedTasksContextProvider>
+              <Main/>
+            </SelectedTasksContextProvider>
+          </TasksContextProvider>
         </UserContextProvider>
       </NativeRouter>
       <Toast />

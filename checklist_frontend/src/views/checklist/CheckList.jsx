@@ -10,6 +10,7 @@ import AlertDialog from '../dialogs/AlertDialog'
 import useTaskSelection from '../../hooks/useTaskSelection'
 import { colors } from '../../styles/styles'
 import UserContext from '../../contexts/UserContext'
+import TasksContext from '../../contexts/TasksContext'
 
 const CheckList = () => {
 
@@ -25,7 +26,7 @@ const CheckList = () => {
     }
   })
 
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useContext(TasksContext)
   const [dialog, setDialog] = useState(null)
   const selectedTasks = useTaskSelection()
   const [user] = useContext(UserContext)

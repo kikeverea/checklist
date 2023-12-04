@@ -1,9 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 
-const UserContext = createContext({
-  user: '',
-  setUser: () => {},
-})
+const UserContext = createContext()
 
 export const useSetUser = () => {
   const userContext = useContext(UserContext) // [user, setUser]
