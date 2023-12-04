@@ -3,8 +3,12 @@ import axios from "axios"
 const url = 'http://192.168.64.5:3000/users.json'
 
 const me = async user => {
-  const url = `http://192.168.64.5:3000/users/${user.info.id}`
-  const res = await axios.get(url, { headers: { Authorization: `Bearer ${user.token}` } })
+  return await getUser(user.info.id, user.token)
+}
+
+const getUser = async (userId, token) => {
+  const url = `http://192.168.64.5:3000/users/${userId}`
+  const res = await axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
 
   return res.data
 }
@@ -17,7 +21,7 @@ const createNewUser = async (values) => {
     }
   }
   delete user.user.confirmPassword
-  
+
   let success
   let data
 
@@ -61,10 +65,10 @@ const loginUser = async (username, password) => {
     success = false
 
     if (res.status === 401)
-      data = { error: 'Wrong credentials'}
+      data = { error: 'Wrong credentials' }
 
     else
-      data = { error: `Failed with status code: ${res.status}`}
+      data = { error: `Failed with status code: ${res.status}` }
   }
   return { success, data }
 }
@@ -74,4 +78,4 @@ const deleteUser = async user => {
   const res = await axios.delete(url, { headers: { Authorization: `Bearer ${user.token}` } })
 }
 
-export default { me, createNewUser, loginUser, deleteUser }
+export default { me, getUser, createNewUser, loginUser, deleteUser }

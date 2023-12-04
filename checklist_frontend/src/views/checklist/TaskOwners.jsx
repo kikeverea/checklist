@@ -2,8 +2,10 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native'
 import { colors } from '../../styles/styles'
 import UserItem from '../users/UserItem'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useContext } from 'react'
+import UserContext from '../../contexts/UserContext'
 
-const TaskOwners = ({ height }) => {
+const TaskOwners = ({ height, owners }) => {
 
   const styles = StyleSheet.create({
     container: {
@@ -28,8 +30,18 @@ const TaskOwners = ({ height }) => {
     },
     shareButtonText: {
       color: 'green'
+    },
+    secondaryText: {
+      fontSize: 11,
+      fontStyle: 'italic',
+      color: colors.textSecondary,
+      paddingLeft: 4
     }
   })
+
+  const [user] = useContext(UserContext)
+
+  const sharedWith = owners.filter(owner => owner.id !== user.id)
 
   return (
     <View style={ styles.container }>
@@ -41,15 +53,14 @@ const TaskOwners = ({ height }) => {
           <Icon name='plus' color='green' size={ 24 }/>
         </Pressable>
       </View>
-      <ScrollView>
-          <View style={ styles.ownersContainer }>
-            <UserItem user={{ info: { name: 'Lorem Ipsum' }}}/>
-            <UserItem user={{ info: { name: 'Lorem Ipsum' }}}/>
-            <UserItem user={{ info: { name: 'Lorem Ipsum' }}}/>
-            <UserItem user={{ info: { name: 'Lorem Ipsum' }}}/>
-            <UserItem user={{ info: { name: 'Lorem Ipsum' }}}/>
-          </View>
-        </ScrollView>
+      { sharedWith.length > 0
+        ? <ScrollView>
+            <View style={ styles.ownersContainer }>
+              { owners.map(owner => <UserItem userId={ owner }/>) }
+            </View>
+          </ScrollView>
+        : <Text style={ styles.secondaryText }>No has compartido la tarea con ningún usuario</Text>
+      }
     </View>
   )
 }

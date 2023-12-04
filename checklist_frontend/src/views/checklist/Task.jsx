@@ -30,7 +30,7 @@ const Task = () => {
       </TaskActionBar>
       <View style={ styles.container }>
         <TaskDescription description={ task.description } height={ sectionsHeight }/>
-        <TaskOwners height={ sectionsHeight }/>
+        <TaskOwners owners= { task.users } height={ sectionsHeight }/>
       </View>
     </View>
   )
