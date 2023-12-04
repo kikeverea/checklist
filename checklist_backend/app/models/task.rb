@@ -8,7 +8,10 @@ class Task < ApplicationRecord
     { :id => self.id,
       :description => self.description,
       :completed => self.completed,
-      :created_by => self.created_by
+      :created_by => self.created_by,
+      :users => self.user_tasks.map do |user_task|
+        user_task.user_id
+      end
     }
   end
 end

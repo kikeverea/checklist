@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    render json: @user.tasks
+    render json: @user.tasks.includes(:user_tasks)
   end
 
   # GET /tasks/1 or /tasks/1.json
