@@ -1,10 +1,20 @@
 import usersService from '../services/usersService'
-import { useSetUser } from '../contexts/UserContext'
+import UserContext from '../contexts/UserContext'
 import userLocalPersist from '../services/userLocalPersist'
+import { useContext, useEffect } from 'react'
 
-const useUserAccount = () => {
+const useUserSession = () => {
 
-  const setUser = useSetUser()
+  const [user, setUser] = useContext(UserContext)
+
+  useEffect(() => {
+    userLocalPersist.get()
+      .then(user => {
+        if (user && user.info && user.token)
+          setUser(user)  
+      })
+      .catch(e => console.error(e))
+  }, [])
 
   const login = async (credentials) => {
     try {
@@ -41,7 +51,7 @@ const useUserAccount = () => {
     await usersService.deleteUser(user)
   }
 
-  return [login, logout, deleteAccout]
+  return [user, login, logout, deleteAccout]
 }
 
-export default useUserAccount
+export default useUserSession

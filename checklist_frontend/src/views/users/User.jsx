@@ -5,7 +5,7 @@ import UserIcon from './UserIcon'
 import UserContext from '../../contexts/UserContext'
 import { colors } from '../../styles/styles'
 import usersService from '../../services/usersService'
-import useUserAccount from '../../hooks/useUserAccount'
+import useUserSession from '../../hooks/useUserSession'
 import { useNavigate } from 'react-router-native'
 import Banner from '../main/Banner'
 import DeleteUserDialog from '../dialogs/DeleteUserDialog'
@@ -60,7 +60,7 @@ const User = () => {
   const [userInfo, setUserInfo] = useState(null)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
   const navigate = useNavigate()
-  const [_, logout, deleteAccount] = useUserAccount()
+  const [_user, _login, logout, deleteAccount] = useUserSession()
   const [user] = useContext(UserContext)
 
   useEffect(() => {

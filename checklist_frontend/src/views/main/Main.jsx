@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import CheckList from '../checklist/CheckList'
 import User from '../users/User'
 import { View, Platform, BackHandler, Alert } from 'react-native'
@@ -6,14 +6,13 @@ import { Route, Routes, Navigate, useNavigate } from 'react-router-native'
 import Login from '../users/Login'
 import Signup from '../users/SignUp'
 import Task from '../checklist/Task'
-import UserContext from '../../contexts/UserContext'
-import userLocalPersist from '../../services/userLocalPersist'
 import { useBackHandler } from '@react-native-community/hooks'
 import { useLocation } from 'react-router-native'
+import useUserSession from '../../hooks/useUserSession'
 
 const Main = () => {
 
-  const [user, setUser] = useContext(UserContext)
+  const [user] = useUserSession()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -44,15 +43,6 @@ const Main = () => {
         onPress: () => BackHandler.exitApp()
       }
     ]);
-
-  useEffect(() => {
-    userLocalPersist.get()
-      .then(user => {
-        if (user && user.info && user.token)
-          setUser(user)  
-      })
-      .catch(e => console.error(e))
-  }, [])
 
   const landingView = user
     ? <CheckList />
