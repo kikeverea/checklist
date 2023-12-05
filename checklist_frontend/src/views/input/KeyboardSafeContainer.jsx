@@ -1,26 +1,28 @@
-import { StyleSheet, Dimensions, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native"
-import { Platform } from "react-native"
+import { Dimensions, Keyboard, KeyboardAvoidingView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
+import { Platform } from 'react-native'
 
-const KeyboardSafeContainer = ({ style, children }) => {
+const KeyboardSafeContainer = ({ contentContainerStyle, children }) => {
 
   const screenHeight = Dimensions.get('window').height
   const screenWidth = Dimensions.get('window').width
 
-  const styles = StyleSheet.create({
+  const contentStyle = StyleSheet.create({
     container: {
-      ...style,
-      height: screenHeight, // override height
-      width: screenWidth    // override width
-    }
+      ...contentContainerStyle,
+      height: screenHeight,       // override height
+      width: screenWidth          // override width
+    },
   })
 
   return (
     <KeyboardAvoidingView
       behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
-      style={ styles.container }
+      style={{ justifyContent: 'center' }}
     >
-      <TouchableWithoutFeedback style={ styles.container } onPress={ ()=> Keyboard.dismiss() }>
-        { children }
+      <TouchableWithoutFeedback onPress={ ()=> Keyboard.dismiss() }>
+        <View style={ contentStyle.container }>
+          { children }
+        </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   )
