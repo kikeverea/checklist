@@ -3,7 +3,7 @@ import UserIcon from './UserIcon'
 import { colors } from '../../styles/styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import useUserQuery from '../../hooks/useUserQuery'
-
+import { useEffect } from 'react'
 
 const UserItem = ({ userId }) => {
   
@@ -19,8 +19,21 @@ const UserItem = ({ userId }) => {
     }
   })
 
-  const [user, loading] = useUserQuery(userId)
+  const [queryUser, user, loading, error] = useUserQuery(userId)
   
+  useEffect(() => {
+    queryUser({ id: userId })
+  }, [])
+
+  useEffect(() => {
+    if (error)
+      Toast.show({
+        type: 'error',
+        text1: error,
+        position: 'bottom'
+      })
+  }, [error])
+
   return (
       !loading &&
       <View style={ styles.container }><UserIcon userInfo={ user } color={ colors.primaryDark }/>
