@@ -1,7 +1,7 @@
-import { StyleSheet, Text } from 'react-native'
+import { Pressable, StyleSheet, Text } from 'react-native'
 import Banner from '../main/Banner'
 import { colors } from '../../styles/styles'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import BackButton from '../main/BackButton'
 
 const TaskActionBar = ({ task }) => {
   
@@ -19,7 +19,7 @@ const TaskActionBar = ({ task }) => {
 
   return (
     <Banner>
-      <Icon name='arrow-left' size={24} color='#FFF' />
+      <BackButton />
       <Text style={[ styles.text, styles.titleContainer ]}>
         Tarea
       </Text>

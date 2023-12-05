@@ -4,6 +4,7 @@ import UserItem from '../users/UserItem'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
+import IconButton from '../main/IconButton'
 
 const TaskOwners = ({ height, owners }) => {
 
@@ -49,9 +50,7 @@ const TaskOwners = ({ height, owners }) => {
         <Text>
           Compartida
         </Text>
-        <Pressable onPress={ ()=> {} }>
-          <Icon name='plus' color='green' size={ 24 }/>
-        </Pressable>
+        <IconButton name='plus' color='green' onPress={ () => {} }/>
       </View>
       { sharedWith.length > 0
         ? <ScrollView>

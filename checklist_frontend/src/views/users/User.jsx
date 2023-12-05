@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Button, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, Button, Dimensions, TouchableOpacity } from 'react-native'
 import { useState, useContext, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import UserIcon from './UserIcon'
@@ -8,8 +8,8 @@ import usersService from '../../services/usersService'
 import useUserAccount from '../../hooks/useUserAccount'
 import { useNavigate } from 'react-router-native'
 import Banner from '../main/Banner'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import DeleteUserDialog from '../dialogs/DeleteUserDialog'
+import BackButton from '../main/BackButton'
 
 const User = () => {
 
@@ -103,9 +103,7 @@ const User = () => {
     <View style={ styles.container }>
       { showDeleteDialog && <DeleteUserDialog dismiss={ dismissDeleteDialog }/> }
       <Banner>
-        <Pressable onPress={ () => navigate(-1) } >
-          <Icon name='arrow-left' size={24} color='#FFF' />
-        </Pressable>
+        <BackButton />
       </Banner>
       <View style={ styles.userInfoContainer }>
         <UserIcon userInfo={ userInfo } size={ 2 } color={ colors.primaryDark } />
