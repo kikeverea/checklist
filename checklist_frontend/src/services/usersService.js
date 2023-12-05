@@ -3,12 +3,16 @@ import axios from "axios"
 const url = 'http://192.168.64.5:3000/users.json'
 
 const me = async user => {
-  return await getUser(user.info.id, user.token)
+  return await queryUser({ id: user.info.id }, user.token)
 }
 
-const getUser = async (userId, token) => {
-  const url = `http://192.168.64.5:3000/users/${userId}`
-  const res = await axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+const queryUser = async ({ id, username, email }, token) => {
+  const url = 'http://192.168.64.5:3000/users/user.json'
+  const res = await axios.post(
+    url,
+    { user: { id, username, email }},
+    { headers: { Authorization: `Bearer ${token}` }}
+  )
 
   return res.data
 }
@@ -78,4 +82,4 @@ const deleteUser = async user => {
   const res = await axios.delete(url, { headers: { Authorization: `Bearer ${user.token}` } })
 }
 
-export default { me, getUser, createNewUser, loginUser, deleteUser }
+export default { me, queryUser, createNewUser, loginUser, deleteUser }
