@@ -3,6 +3,7 @@ import { colors } from '../../styles/styles'
 import UserItem from '../users/UserItem'
 import { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
+import IconButton from '../main/IconButton'
 
 const TaskOwners = ({ height, owners }) => {
 
