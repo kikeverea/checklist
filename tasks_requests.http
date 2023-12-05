@@ -1,4 +1,4 @@
-@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0M30.S3IEr8dRroDCeVqaWaNeQcT6joG_4KCACHviCtcK-JE
+@token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0MH0.R3HIHcuV6r_9gx6OgJgau1iaE1N980-L9bwr_KBlcSM
 
 # GET ALL
 GET http://192.168.64.5:3000/tasks.json

@@ -1,5 +1,5 @@
 @url = http://192.168.64.5:3000
-@user = 12
+@user = 11
 @token= eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0MH0.R3HIHcuV6r_9gx6OgJgau1iaE1N980-L9bwr_KBlcSM
 
 # Get all users
@@ -10,6 +10,17 @@ Authorization: Bearer {{token}}
 GET {{url}}/users/40.json
 Authorization: Bearer {{token}}
 
+### Query user
+POST {{url}}/users/user.json
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "user" : {
+      "id": "40",
+      "username": "user11"
+    }
+}
 
 ### Create user
 POST {{url}}/users.json
