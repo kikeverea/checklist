@@ -1,10 +1,8 @@
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { colors } from '../../styles/styles'
 import UserItem from '../users/UserItem'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
-import IconButton from '../main/IconButton'
 
 const TaskOwners = ({ height, owners }) => {
 
