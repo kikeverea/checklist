@@ -20,15 +20,14 @@ const Main = () => {
   useBackHandler(() => {
     // Handle event only for android OS; this handling code uses react native´s BackHandler,
     // which only works with android
-
     if (Platform.OS !== 'android') 
       return false
 
-    if (location.pathname === '/signup' || location.pathname === '/user') {
-      navigate(-1)
+    if (location.pathname === '/') {
+      launchExitAlert()
     }
     else {
-      launchExitAlert()
+      navigate(-1)
     }
     return true
   })
