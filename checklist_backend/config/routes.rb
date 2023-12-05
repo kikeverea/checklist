@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   resources :tasks, except: [:new, :edit] 
   resources :categories, except: [:new, :edit]
   resources :users, only: [:create, :update, :delete]
+  post 'users/user', to: 'users_user#get_user'
   post '/auth', to: 'auth#login'
 end
