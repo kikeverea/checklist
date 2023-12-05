@@ -3,20 +3,20 @@ import { colors } from '../../styles/styles'
 import UserItem from '../users/UserItem'
 import { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
-import IconButton from '../main/IconButton'
+import InputBar from '../main/InputBar'
 
-const TaskOwners = ({ height, owners }) => {
+const TaskOwners = ({ style, owners }) => {
 
   const styles = StyleSheet.create({
     container: {
-      height: height,
+      ...style,
+      padding: 16,
       gap: 20
     },
     titleContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingLeft: 4
+      alignItems: 'center'
     },
     ownersContainer: {
       gap: 8
@@ -46,10 +46,7 @@ const TaskOwners = ({ height, owners }) => {
   return (
     <View style={ styles.container }>
       <View style={ styles.titleContainer }>
-        <Text>
-          Compartida
-        </Text>
-        <IconButton name='plus' color='green' onPress={ () => {} }/>
+        <InputBar />
       </View>
       { sharedWith.length > 0
         ? <ScrollView>

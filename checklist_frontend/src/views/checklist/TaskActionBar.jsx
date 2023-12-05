@@ -3,7 +3,10 @@ import Banner from '../main/Banner'
 import { colors } from '../../styles/styles'
 import BackButton from '../main/BackButton'
 
-const TaskActionBar = ({ task }) => {
+const TaskActionBar = ({ task, height, show = true}) => {
+
+  if (!show)
+    return null
   
   const styles = StyleSheet.create({
     text: {
@@ -18,7 +21,7 @@ const TaskActionBar = ({ task }) => {
   })
 
   return (
-    <Banner>
+    <Banner height={ height }>
       <BackButton />
       <Text style={[ styles.text, styles.titleContainer ]}>
         Tarea
