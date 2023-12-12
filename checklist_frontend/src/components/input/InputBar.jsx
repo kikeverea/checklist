@@ -2,7 +2,7 @@ import { StyleSheet, View, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { colors } from '../../styles/styles'
 import { useState } from 'react'
-import Roundshape from './Roundshape'
+import Roundshape from '../Roundshape'
 
 const InputBar = ({ onSubmit }) => {
 
