@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet, Text } from 'react-native'
-import Banner from '../main/Banner'
+import { StyleSheet, Text } from 'react-native'
+import Banner from '../../components/Banner'
+import BackButton from '../../components/BackButton'
 import { colors } from '../../styles/styles'
-import BackButton from '../main/BackButton'
 
 const TaskActionBar = ({ task, height, show = true}) => {
 

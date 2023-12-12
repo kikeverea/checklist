@@ -7,9 +7,9 @@ import { colors } from '../../styles/styles'
 import usersService from '../../services/usersService'
 import useUserSession from '../../hooks/useUserSession'
 import { useNavigate } from 'react-router-native'
-import Banner from '../main/Banner'
+import Banner from '../../components/Banner'
+import BackButton from '../../components/BackButton'
 import DeleteUserDialog from '../dialogs/DeleteUserDialog'
-import BackButton from '../main/BackButton'
 
 const User = () => {
 

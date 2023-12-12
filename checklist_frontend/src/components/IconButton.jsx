@@ -1,6 +1,6 @@
 import { Pressable } from "react-native"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { colors } from "../../styles/styles"
+import { colors } from "../styles/styles"
 
 const IconButton = ({ name, size = 24, color = colors.icons, onPress }) => {
   

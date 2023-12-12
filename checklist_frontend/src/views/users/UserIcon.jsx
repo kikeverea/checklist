@@ -1,4 +1,4 @@
-import Roundshape from '../main/Roundshape';
+import Roundshape from '../../components/Roundshape'
 
 const UserIcon = ({ userInfo = { name: '?' }, doAction, size = 2, color }) => {
 

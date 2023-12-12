@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet, View } from 'react-native'
-import { colors } from '../../styles/styles'
+import { colors } from '../styles/styles'
 
 const Banner = ({ height = 60, children }) => {
 

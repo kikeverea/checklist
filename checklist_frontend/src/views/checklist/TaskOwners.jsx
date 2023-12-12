@@ -3,7 +3,7 @@ import { colors } from '../../styles/styles'
 import UserItem from '../users/UserItem'
 import { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
-import InputBar from '../main/InputBar'
+import InputBar from '../../components/InputBar'
 
 const TaskOwners = ({ style, owners }) => {
 

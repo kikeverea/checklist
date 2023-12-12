@@ -1,14 +1,13 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import UserIcon from '../users/UserIcon'
-import Banner from '../main/Banner'
+import Banner from '../../components/Banner'
+import IconButton from '../../components/IconButton'
 import useTaskSelection from '../../hooks/useTaskSelection'
 import UserContext from '../../contexts/UserContext'
 import { colors } from '../../styles/styles'
-import IconButton from '../main/IconButton'
 
 const ChecklistActionBar = ({ onDelete }) => {
 
