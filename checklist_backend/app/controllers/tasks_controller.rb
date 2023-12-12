@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show update destroy ]
-  before_action :user_has_modify_permission, only: %i[ update destroy ]
+  before_action :set_task, only: %i[ show update share destroy ]
+  before_action :user_has_modify_permission, only: %i[ update share destroy ]
 
   # GET /tasks or /tasks.json
   def index
@@ -40,6 +40,13 @@ class TasksController < ApplicationController
     end
   end
 
+  # POST /tasks/1/share or /tasks/1/share.json
+  def share
+    user = User.find_by(id: share_params[:id])
+    user.tasks << @task
+    render json: { :result => "Task #{params[:id]} shared with user #{share_params[:id]}" }, status: :accepted
+  end
+
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
     @task.destroy!
@@ -77,5 +84,10 @@ class TasksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def update_params
       params.require(:task).permit(:description, :completed)
+    end
+
+    # Only allow a list of trusted parameters through.
+    def share_params
+      params.require(:user).permit(:id)
     end
 end
