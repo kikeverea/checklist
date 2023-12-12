@@ -106,7 +106,7 @@ const User = () => {
         <BackButton />
       </Banner>
       <View style={ styles.userInfoContainer }>
-        <UserIcon userInfo={ userInfo } size={ 2 } color={ colors.primaryDark } />
+        <UserIcon userInfo={ userInfo } size={ 4 } color={ colors.primaryDark } />
         <View style={ styles.userInfo }>
           <Text style={ styles.name }>{ userInfo.name }</Text>
           <Text>{ userInfo.username }</Text>
