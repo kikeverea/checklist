@@ -3,7 +3,7 @@ import { colors } from '../../styles/styles'
 import UserItem from '../users/UserItem'
 import { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
-import InputBar from '../../components/InputBar'
+import InputBar from '../../components/input/InputBar'
 
 const TaskOwners = ({ style, owners }) => {
 
@@ -41,7 +41,7 @@ const TaskOwners = ({ style, owners }) => {
 
   const [user] = useContext(UserContext)
 
-  const sharedWith = owners.filter(owner => owner.id !== user.id)
+  const sharedWith = owners.filter(owner => owner !== user.info.id)
 
   return (
     <View style={ styles.container }>
@@ -51,7 +51,7 @@ const TaskOwners = ({ style, owners }) => {
       { sharedWith.length > 0
         ? <ScrollView>
             <View style={ styles.ownersContainer }>
-              { owners.map(owner => <UserItem userId={ owner }/>) }
+              { sharedWith.map(shared => <UserItem userId={ shared }/>) }
             </View>
           </ScrollView>
         : <Text style={ styles.secondaryText }>No has compartido la tarea con ningún usuario</Text>
