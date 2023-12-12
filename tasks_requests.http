@@ -12,19 +12,31 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "description": "test {{test}}"
+    "description": "test_task {{test}}"
 }
 
 ### UPDATE 
 
-PUT http://192.168.64.5:3000/tasks/23.json
+PUT http://192.168.64.5:3000/tasks/57.json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
   "task" : {
-    "description": "edited with token"
+    "description": "shared task"
     }
+}
+
+### SHARE 
+
+POST http://192.168.64.5:3000/tasks/57/share
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "user" : {
+    "id": "44"
+  }
 }
 
 ### DELETE TASK
