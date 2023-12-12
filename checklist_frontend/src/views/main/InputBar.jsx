@@ -1,14 +1,17 @@
 import { StyleSheet, View, TextInput } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { colors } from '../../styles/styles'
 import { useState } from 'react'
+import Roundshape from './Roundshape'
 
-const InputBar = () => {
+const InputBar = ({ onSubmit }) => {
 
   const styles = StyleSheet.create({
     bar: {
       flex: 1,
       height: 40,
       flexDirection: 'row',
+      alignItems: 'center',
       borderRadius: 20,
       borderColor: colors.secondary,
       borderWidth: 1,
@@ -20,11 +23,15 @@ const InputBar = () => {
     }
   })
 
-  const focusedPlaceholder = 'usuario, email, id'
-  const notFocusedPlaceholder = 'Compartir tarea'
-
   const [value, setValue] = useState('')
-  const [placeholder, setPlaceholder] = useState(notFocusedPlaceholder)
+  const [placeholder, setPlaceholder] = useState(unfocusedPlaceholder)
+
+  const enableButton = value.length > 2
+  const buttonColor = enableButton ? '#67d68c' : colors.secondary
+  const buttonAction = enableButton ? onSubmit : () => {}
+
+  const focusedPlaceholder = 'usuario, email, id'
+  const unfocusedPlaceholder = 'Compartir tarea'
 
   return (
     <View style={ styles.bar }>
@@ -34,7 +41,12 @@ const InputBar = () => {
         value={ value }
         placeholder={ placeholder }
         onFocus={ () => setPlaceholder(focusedPlaceholder) }
-        onBlur={() => setPlaceholder(notFocusedPlaceholder) }
+        onBlur={() => setPlaceholder(unfocusedPlaceholder) }
+      />
+      <Roundshape
+        content={ <Icon name='check' size={ 12 } /> }
+        color={ buttonColor }
+        doAction={ buttonAction }
       />
     </View>
   )
