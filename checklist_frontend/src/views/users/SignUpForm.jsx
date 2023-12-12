@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { View, Button } from 'react-native'
-import FormikTextInput from '../input/FormikTextInput'
+import FormikTextInput from '../../components/input/FormikTextInput'
 import { Formik } from 'formik'
 import { colors } from '../../styles/styles'
 import * as Yup from 'yup'

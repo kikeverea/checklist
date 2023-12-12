@@ -1,6 +1,6 @@
 import { Formik } from "formik"
 import { View, Button, StyleSheet } from "react-native"
-import FormikTextInput from '../input/FormikTextInput'
+import FormikTextInput from '../../components/input/FormikTextInput'
 import { colors } from "../../styles/styles"
 
 const LoginForm = ({ onSubmit }) => {

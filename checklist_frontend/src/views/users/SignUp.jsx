@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-native'
 import Toast from 'react-native-toast-message'
 
 import SignUpForm from './SignUpForm'
-import KeyboardSafeScrollableContainer from '../input/KeyboardSafeScrollableContainer'
+import KeyboardSafeScrollableContainer from '../../components/input/KeyboardSafeScrollableContainer'
 import usersService from '../../services/usersService'
 
 const SignUp = () => {
