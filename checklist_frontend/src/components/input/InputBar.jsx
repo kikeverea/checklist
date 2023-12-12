@@ -23,15 +23,15 @@ const InputBar = ({ onSubmit }) => {
     }
   })
 
+  const focusedPlaceholder = 'usuario, email, id'
+  const unfocusedPlaceholder = 'Compartir tarea'
+
   const [value, setValue] = useState('')
   const [placeholder, setPlaceholder] = useState(unfocusedPlaceholder)
 
   const enableButton = value.length > 2
   const buttonColor = enableButton ? '#67d68c' : colors.secondary
   const buttonAction = enableButton ? onSubmit : () => {}
-
-  const focusedPlaceholder = 'usuario, email, id'
-  const unfocusedPlaceholder = 'Compartir tarea'
 
   return (
     <View style={ styles.bar }>
